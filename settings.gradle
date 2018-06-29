@@ -1,0 +1,8 @@
+include ':Pool'
+include ':Desktop'
+include ':Core'
+include 'CoreInstaller'
+include 'lifeCycle'
+include 'BlockBuilder'
+include 'db'
+

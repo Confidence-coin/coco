@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox fx:controller="com.gazman.coco.desktop.controllers.send_coins.SendCoinsController" spacing="10" GridPane.columnIndex="0"
+      GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+    </padding>
+
+
+    <TextField promptText="Address" fx:id="address"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField promptText="Amount" fx:id="amount"/>
+        <CheckBox text="All I got " textFill="azure" fx:id="allCheckBox"/>
+    </HBox>
+
+    <HBox>
+        <TextField promptText="Optional miners tip"/>
+    </HBox>
+
+    <HBox/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button text="Add transaction" onMouseClicked="#onAddTransaction"/>
+        <Button alignment="TOP_LEFT" text="Continue" onMouseClicked="#onContinue"/>
+    </HBox>
+
+
+</VBox>

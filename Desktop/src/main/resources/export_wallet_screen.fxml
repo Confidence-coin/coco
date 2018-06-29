@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.gazman.coco.desktop.controllers.ExportWalletScreen"
+      spacing="100"
+      prefHeight="400.0" prefWidth="600.0">
+
+
+    <TextField editable="false" text="Your wallet can be created using the below secret key" alignment="CENTER"/>
+
+    <TextField editable="false" text="123-456-789" alignment="CENTER" fx:id="secretKey"/>
+
+</VBox>

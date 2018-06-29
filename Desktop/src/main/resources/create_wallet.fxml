@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.controllers.WelcomeScreenController">
+    <padding>
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+    </padding>
+    <Label text="Wallet Created" textAlignment="CENTER">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Label>
+    <GridPane>
+        <Label text="Secret Key:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="238482374987239zxjfhkjshdfASDasda091" textFill="#9a752a" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Wallet Address:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="1234@67as5d67as7das876d7ASDfdhajkhdS" textFill="#9a752a" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </Label>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+
+    </GridPane>
+    <TextFlow maxWidth="400">
+        <Text style="-fx-font-weight: bold" text="Secret key: " />
+        <Text text="With secret key you can restore your wallet on any device and it allows your wallet to make transactions. You should write your secret key to a paper as there is no way to recover it." />
+    </TextFlow>
+    <TextFlow maxWidth="400">
+        <Text style="-fx-font-weight: bold" text="Wallet address: " />
+        <Text text="You should give your wallet address to people who want to send you money." />
+    </TextFlow>
+
+
+    <VBox />
+    <VBox alignment="CENTER_LEFT" spacing="10" />
+    <HBox alignment="CENTER_RIGHT">
+        <Button mnemonicParsing="false" text="Continue" />
+    </HBox>
+
+
+</VBox>

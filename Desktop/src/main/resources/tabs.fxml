@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<TabPane xmlns="http://javafx.com/javafx"
+         prefHeight="400.0" prefWidth="600.0"
+         xmlns:fx="http://javafx.com/fxml">
+
+    <Tab text="Transactions" closable="false">
+        <fx:include source="main_screen.fxml"/>
+    </Tab>
+    <Tab text="Smart contracts" closable="false">
+
+    </Tab>
+    <Tab text="Mining" closable="false">
+        <fx:include source="mining_screen.fxml"/>
+    </Tab>
+</TabPane>

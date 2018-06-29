@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      spacing="10"
+      fx:controller="com.gazman.coco.desktop.controllers.MiningScreenController"
+>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Pool Name"/>
+        <ChoiceBox fx:id="pools"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Thread Count"/>
+        <ChoiceBox fx:id="threadChoice"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Thread priority"/>
+        <ChoiceBox fx:id="threadPriorityChoice"/>
+    </HBox>
+
+    <Separator/>
+
+    <Label text="Speed:" fx:id="speedLabel"/>
+    <Button text="Start Mining" fx:id="miningButton"/>
+
+
+</VBox>

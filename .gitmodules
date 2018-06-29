@@ -1,0 +1,3 @@
+[submodule "lifeCycle"]
+	path = lifeCycle
+	url = git@github.com:Confidence-coin/life-cycle-java.git

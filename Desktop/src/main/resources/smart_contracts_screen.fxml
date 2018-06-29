@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<StackPane   xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gazman.coco.desktop.controllers.SmartContractController">
+
+
+    <HBox spacing="10" StackPane.alignment="CENTER">
+
+        <TextField promptText="Enter smart contract link"/>
+        <Button text="Load"/>
+    </HBox>
+
+
+</StackPane >

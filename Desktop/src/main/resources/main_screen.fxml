@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
+<VBox spacing="10" StackPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/8.0.121" VBox.vgrow="ALWAYS"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.controllers.MainScreenController">
+    <TextFlow>
+        <Text text="Balance: " style="-fx-fill: white;"/>
+        <Text text="5 Gold " style="-fx-fill: white; -fx-stroke: gold; -fx-font-weight: bold"/>
+        <Text text=", " style="-fx-fill: white;"/>
+        <Text text="200 Silver" style="-fx-fill: white; -fx-stroke: silver; -fx-font-weight: bold"/>
+        <Text text=", and " style="-fx-fill: white;"/>
+        <Text text="1K Bronze" style="-fx-fill: white; -fx-stroke: brown; -fx-font-weight: bold"/>
+
+    </TextFlow>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Wallet address: 98095890804958hghg" fx:id="walletAddress"/>
+        <Button alignment="CENTER" text="Copy" onMouseClicked="#onCopy"/>
+    </HBox>
+
+    <Button alignment="CENTER" onAction="#sendMoney" text="Send coins"/>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <HBox alignment="CENTER_RIGHT" maxHeight="100.0" spacing="10">
+        <Button onAction="#exportWallet" text="Export wallet"/>
+        <Button text="Link to Crypto-Card"/>
+    </HBox>
+</VBox>
