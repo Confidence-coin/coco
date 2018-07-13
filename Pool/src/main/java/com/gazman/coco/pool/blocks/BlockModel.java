@@ -25,10 +25,9 @@ public class BlockModel implements Singleton {
         return poolDifficulty;
     }
 
-    private byte[] getPoolDifficulty(DB db, int power, int blockId) {
+    private byte[] getPoolDifficulty(DB db, double power, int blockId) {
         byte[] difficulty = BlockUtils.queryDifficulty(db, blockId);
-        double delta = 1D / power;
-        BigDecimal d = BigDecimal.valueOf(delta);
+        BigDecimal d = BigDecimal.valueOf(power);
         BigDecimal difficultyValue = new BigDecimal(ByteUtils.toBigInteger(difficulty));
         return ByteUtils.toByteArray(difficultyValue.multiply(d).toBigInteger(), difficulty.length);
     }

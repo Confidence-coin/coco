@@ -10,6 +10,7 @@ import com.gazman.lifecycle.log.Logger;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MinerService implements Singleton {
 
+    public static final int MAX_SPEED_SAMPLES = 10_000;
+    public static final int SAMPLING_TIME_MILLISECONDS = 1000 * 10;
     private boolean mining;
     private ProgressCallback callback;
     private ExecutorService mainExecutor;
@@ -28,10 +31,9 @@ public class MinerService implements Singleton {
 
     private ArrayList<Miner> miners = new ArrayList<>();
     private BaseSettings baseSettings = Factory.inject(BaseSettings.class);
-    private LinkedList<LoopData> loops = new LinkedList<>();
+    private HashMap<Thread, LoopData> loops = new HashMap<>();
 
     {
-        loops.add(new LoopData(0));
         baseSettings.load("MinerSettings.txt");
     }
 
@@ -95,8 +97,8 @@ public class MinerService implements Singleton {
         for (int i = 0; i < threads; i++) {
             Miner miner = new Miner(workData, i, new MinerCallback() {
                 @Override
-                public void onProgress(int loopsCount) {
-                    updateSpeed(loopsCount);
+                public void onProgress(LoopData loopData) {
+                    updateSpeed(loopData);
                 }
 
                 @Override
@@ -127,33 +129,17 @@ public class MinerService implements Singleton {
         }
     }
 
-    private void updateSpeed(int loopsCount) {
+    private void updateSpeed(LoopData loopData) {
+        loops.put(Thread.currentThread(), loopData);
         speedExecutor.submit(() -> {
-            if (loopsCount == -1) {
-                loops.clear();
-                loops.add(new LoopData(0));
-            } else {
-                loops.add(new LoopData(loopsCount));
-                while (loops.size() > getThreadCount() * 10) {
-                    loops.remove();
-                }
-                loops.removeIf(loopData -> System.currentTimeMillis() - 1000 * 100 > loopData.creationTime);
-            }
-            double totalLoops = 0;
-            long minTime = Long.MAX_VALUE;
-            long maxTime = 0;
-            for (LoopData loop : loops) {
-                totalLoops += loop.loopsCount;
-                if (loop.creationTime < minTime) {
-                    minTime = loop.creationTime;
-                }
-                if (loop.creationTime > maxTime) {
-                    maxTime = loop.creationTime;
+            double totalSpeed = 0;
+            for (LoopData loop : loops.values()) {
+                if(loop.totalTime > 0) {
+                    totalSpeed += (double) loop.loopsCount / loop.totalTime;
                 }
             }
-            long deltaTimeMilliseconds = maxTime - minTime + 1;
 
-            long loopsPerSecond = Math.round(totalLoops * 1000 / deltaTimeMilliseconds);
+            long loopsPerSecond = Math.round(totalSpeed * 1000);
             Platform.runLater(() -> callback.onProgress(loopsPerSecond));
         });
     }
@@ -169,7 +155,8 @@ public class MinerService implements Singleton {
         miners.clear();
         minersExecutor.shutdown();
         minersExecutor = null;
-        updateSpeed(-1);
+        loops.clear();
+        Platform.runLater(() -> callback.onProgress(0));
     }
 
     private void init() {
@@ -198,13 +185,5 @@ public class MinerService implements Singleton {
         return baseSettings.readInteger("threads", Math.max(1,
                 Runtime.getRuntime().availableProcessors() - 1));
     }
-
-    private class LoopData {
-        final int loopsCount;
-        final long creationTime = System.currentTimeMillis();
-
-        public LoopData(int loopsCount) {
-            this.loopsCount = loopsCount;
-        }
-    }
 }
+

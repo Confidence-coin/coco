@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -13,6 +14,8 @@ import java.util.Random;
  */
 public class Miner {
 
+    private static final boolean DEBUG = false;
+    private byte[] bestSolution;
     private WorkData workData;
     private int minerId;
     private MinerCallback callback;
@@ -38,7 +41,7 @@ public class Miner {
         byte[] step3Hash = workData.step3Hash;
         byte[] difficulty = workData.difficulty;
         Random random = new Random();
-        int i, blob = 0;
+        int i, loops = 0;
 
         final MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         final MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
@@ -72,20 +75,21 @@ public class Miner {
         ByteBuffer seedBuffer = ByteBuffer.wrap(seedData);
 
         while (active) {
-            blob++;
-            if (blob > speed) {
+            loops++;
+            if (loops > speed) {
                 if (adjustments > 0) {
                     adjustments--;
                     long deltaTime = System.currentTimeMillis() - blockTime;
                     speed = (int) (speed / (deltaTime / 1000D));
                 }
-                callback.onProgress(blob);
-                blob = 0;
-
-
                 long currentTime = System.currentTimeMillis();
-                System.out.println(Thread.currentThread().getName() + " Speed: " + (currentTime - startingTime) / 1000F);
+                callback.onProgress(new LoopData(loops, currentTime - startingTime));
+
+//                System.out.println(Thread.currentThread().getName() + " Loop interval: " +
+//                        (currentTime - startingTime) / 1000F + " Speed: " + (loops * 1000 / (currentTime - startingTime)));
                 startingTime = currentTime;
+
+                loops = 0;
 
                 //Step 4 updateTime
                 blockTime = System.currentTimeMillis();
@@ -99,7 +103,7 @@ public class Miner {
             // Step 5 hash the blob
             blobBuffer.rewind();
             blobBuffer.putInt(minerId);
-            blobBuffer.putInt(blob);
+            blobBuffer.putInt(loops);
             sha256.update(blobBuffer.array());
             sha256.digest(blobHash, 0, 32);
 
@@ -126,7 +130,6 @@ public class Miner {
                     System.arraycopy(blobHash2, 0, blockAndBlobAndBlobHash, 64, 20);
 
                     sha256.update(blockAndBlobAndBlobHash, 0, 84);
-                    sha256.digest(solutionHash, 0, 32);
                     break;
                 case 2:
                     sha384.update(blobBuffer.array());
@@ -134,7 +137,6 @@ public class Miner {
                     System.arraycopy(blobHash2, 0, blockAndBlobAndBlobHash, 64, 48);
 
                     sha256.update(blockAndBlobAndBlobHash, 0, 112);
-                    sha256.digest(solutionHash, 0, 32);
                     break;
                 case 3:
                     sha512.update(blobBuffer.array());
@@ -142,7 +144,6 @@ public class Miner {
                     System.arraycopy(blobHash2, 0, blockAndBlobAndBlobHash, 64, 64);
 
                     sha256.update(blockAndBlobAndBlobHash, 0, 128);
-                    sha256.digest(solutionHash, 0, 32);
                     break;
                 default: // 0 and 4 are MD5
                     md5.update(blobBuffer.array());
@@ -150,8 +151,20 @@ public class Miner {
                     System.arraycopy(blobHash2, 0, blockAndBlobAndBlobHash, 64, 16);
 
                     sha256.update(blockAndBlobAndBlobHash, 0, 70);
-                    sha256.digest(solutionHash, 0, 32);
                     break;
+            }
+            sha256.digest(solutionHash, 0, 32);
+
+            if(DEBUG){
+                if(bestSolution == null){
+                    bestSolution = solutionHash.clone();
+                }
+                else if(compare(bestSolution, solutionHash)){
+                    bestSolution = solutionHash.clone();
+                    printSolution(solutionHash, loops, blockTime);
+                    printSolution(difficulty, loops, blockTime);
+                }
+                continue;
             }
 
             for (i = 0; i < 32; i++) {
@@ -166,27 +179,52 @@ public class Miner {
                         if (b < a) {
                             break;
                         } else {
-                            callback.onSolutionFound(blob, blockTime);
-                            printSolution(solutionHash, blob, blockTime);
+                            printSolution(solutionHash, loops, blockTime);
+                            callback.onSolutionFound(loops, blockTime);
                         }
                     } else {
                         break;
                     }
                 } else {
                     if (a < 0) {
-                        callback.onSolutionFound(blob, blockTime);
-                        printSolution(solutionHash, blob, blockTime);
+                        printSolution(solutionHash, loops, blockTime);
+                        callback.onSolutionFound(loops, blockTime);
                     } else {
                         if (b > a) {
                             break;
                         } else {
-                            callback.onSolutionFound(blob, blockTime);
-                            printSolution(solutionHash, blob, blockTime);
+                            printSolution(solutionHash, loops, blockTime);
+                            callback.onSolutionFound(loops, blockTime);
                         }
                     }
                 }
             }
         }
+    }
+
+    private boolean compare(byte[] difficulty, byte[] solutionHash ){
+        for (int i = 0; i < 32; i++) {
+            byte a = difficulty[i];
+            byte b = solutionHash[i];
+
+            if (a == b) {
+                continue;
+            }
+            if (b < 0) {
+                if (a < 0) {
+                    return b >= a;
+                } else {
+                    break;
+                }
+            } else {
+                if (a < 0) {
+                    return true;
+                } else {
+                    return b <= a;
+                }
+            }
+        }
+        return false;
     }
 
     private void printSolution(byte[] solutionHash, long blob, long blockTime) {

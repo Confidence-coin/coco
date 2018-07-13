@@ -5,7 +5,7 @@ package com.gazman.coco.desktop.miner;
  */
 public interface MinerCallback {
 
-    void onProgress(int loopsCount);
+    void onProgress(LoopData loopData);
 
     void onSolutionFound(int blob, long blockTime);
 }

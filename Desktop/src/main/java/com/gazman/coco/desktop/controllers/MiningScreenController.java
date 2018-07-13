@@ -57,34 +57,40 @@ public class MiningScreenController extends BaseController {
                 miner.stop();
             } else {
                 miningButton.setText("Stop mining");
+                updateSettings();
                 miner.start();
             }
         });
         miningButton.requestFocus();
     }
 
+    private void updateSettings() {
+        miner.setPriority(threadPriorityChoice.getValue());
+        miner.setThreadCount(threadChoice.getValue());
+    }
+
     private void initPriority() {
         for (int i = Thread.MIN_PRIORITY; i < Thread.MAX_PRIORITY; i++) {
             threadPriorityChoice.getItems().add( i + 1);
         }
-        selectFirst(threadPriorityChoice);
+        selectFirst(threadPriorityChoice, 7);
     }
 
     private void initThreadChoice() {
-        int maxThreads = Runtime.getRuntime().availableProcessors() * 2;
+        int maxThreads = Math.max(1, Runtime.getRuntime().availableProcessors() - 1);
         for (int i = 0; i < maxThreads; i++) {
             threadChoice.getItems().add( i + 1);
         }
-        selectFirst(threadChoice);
+        selectFirst(threadChoice, maxThreads - 1);
     }
 
     private void initPools() {
         pools.getItems().addAll("Apple", "nice", "Fish");
         pools.setValue("Select Pool");
-        selectFirst(pools);
+        selectFirst(pools, 0);
     }
 
-    private <T> void selectFirst(ChoiceBox<T> choiceBox) {
-        choiceBox.setValue(choiceBox.getItems().get(0));
+    private <T> void selectFirst(ChoiceBox<T> choiceBox, int selection) {
+        choiceBox.setValue(choiceBox.getItems().get(selection));
     }
 }

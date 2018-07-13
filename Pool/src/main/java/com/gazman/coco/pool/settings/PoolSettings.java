@@ -43,7 +43,7 @@ public final class PoolSettings {
         settings.load("pool.txt");
         settings.setSaveDefaults(true);
 
-        POOL_DIFFICULTY_MULTIPLIER = settings.readInteger("POOL_DIFFICULTY_MULTIPLIER", 100);
+        POOL_DIFFICULTY_MULTIPLIER = settings.readInteger("POOL_DIFFICULTY_MULTIPLIER", 1_000_000);
 
         POOL_SECRET = Utils.uuidToByteArray(settings.readString("POOL_SECRET", UUID.randomUUID()::toString));
         SHARE_TIME_ERROR = settings.readInteger("SHARE_TIME_ERROR", 1000 * 30);
