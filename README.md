@@ -8,7 +8,9 @@ _________
 
 Join the contributors' program and start earning points, once subscribing to the [mailing list](https://groups.google.com/forum/#!forum/confidence-coin/join) you will get access to the [leaderboar](https://docs.google.com/spreadsheets/d/13Pk-x2AXiU3egC8lrQJrlpoAYsEdWHhLNRxgudZ4YF8) where you can see how other doing.
 
-# Development and design opportunities  
+Start by watching a [quick overview video](https://www.youtube.com/watch?v=4eC-v7ZS3PI) about the project
+
+# Development and design opportunities
 # Create password
 ![create password](https://user-images.githubusercontent.com/6512430/42005570-3b5e4556-7a43-11e8-8958-770251c16629.PNG)  
 The idea is to have one password to the wallet application, while there could be many wallets inside it. This screen is working but maybe you would like to improve the error handling, and make more password conditions, it can definitely look better. Suggest tasks for this screen, and I will add them here.
