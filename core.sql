@@ -1,63 +1,33 @@
-create sequence lists_id_seq
+create sequence wallets_wallet_id_seq
 ;
 
-create sequence next_block_id_seq
-;
-
-create table workers
+create table blocks
 (
-	address bytea not null
-		constraint warkers_pkey
+	id integer not null
+		constraint blocks_pkey
 			primary key,
-	balance double precision,
-	shares double precision
-)
-;
-
-create table shares
-(
-	blob bigint not null,
 	mined_date bigint not null,
-	block_id integer not null
+	difficulty bytea not null,
+	core_version bytea not null,
+	miner_id integer not null,
+	previous_block_hash bytea not null,
+	job_uuid bytea not null,
+	current_block_hash bytea not null,
+	blob bigint not null
 )
 ;
 
-create unique index shares_blob_mined_date_block_id_uindex
-	on shares (blob, mined_date, block_id)
+create unique index blocks_current_block_hash_uindex
+	on blocks (current_block_hash)
 ;
 
-create index shares_block_id_index
-	on shares (block_id)
-;
-
-create table tmp_wallets
+create table wallets
 (
-	list_id integer,
-	wallet_id integer,
-	balance_change double precision
-)
-;
-
-create table lists
-(
-	id serial not null,
-	type integer,
-	features integer,
-	block_id integer,
-	item bytea,
-	receivers bytea
-)
-;
-
-create table next_block
-(
-	id serial not null
-		constraint next_block_pkey
+	wallet_id serial not null
+		constraint wallets_pkey
 			primary key,
-	block_id integer not null,
-	data bytea not null,
-	hash bytea not null,
-	insert_date timestamp default now() not null
+	balance double precision not null,
+	public_key bytea not null
 )
 ;
 
