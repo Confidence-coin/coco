@@ -12,7 +12,7 @@
 
     <TextField promptText="Address" fx:id="address"/>
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <TextField promptText="Amount" fx:id="amount"/>
+        <TextField promptText="Amount" fx:id="amountField"/>
         <CheckBox text="All I got " textFill="azure" fx:id="allCheckBox"/>
     </HBox>
 

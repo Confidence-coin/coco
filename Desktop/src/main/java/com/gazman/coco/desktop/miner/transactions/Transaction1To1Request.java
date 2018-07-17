@@ -16,8 +16,8 @@ public class Transaction1To1Request extends TransactionRequest {
     private double amount;
     private double fees;
 
-    public Transaction1To1Request(PoolData poolData, byte[] blockHash) {
-        super(poolData, ListTypes.TYPE_1_TO_1, blockHash);
+    public Transaction1To1Request(PoolData poolData) {
+        super(poolData, ListTypes.TYPE_1_TO_1);
     }
 
     public Transaction1To1Request setAmount(double amount) {

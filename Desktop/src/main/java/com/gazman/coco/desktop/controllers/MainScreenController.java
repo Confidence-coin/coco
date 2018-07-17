@@ -6,6 +6,7 @@ import com.gazman.lifecycle.Factory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -17,6 +18,9 @@ import java.awt.datatransfer.StringSelection;
 public class MainScreenController extends BaseController {
 
     public Label walletAddress;
+    public Text goldBalance;
+    public Text silverBalance;
+    public Text bronzeBalance;
     private WalletModel walletModel = Factory.inject(WalletModel.class);
 
     @FXML

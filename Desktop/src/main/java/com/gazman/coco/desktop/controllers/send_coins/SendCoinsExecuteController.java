@@ -2,39 +2,43 @@ package com.gazman.coco.desktop.controllers.send_coins;
 
 import com.gazman.coco.core.api.ErrorData;
 import com.gazman.coco.core.api.SummeryData;
-import com.gazman.coco.core.utils.StringUtils;
 import com.gazman.coco.desktop.ScreensController;
 import com.gazman.coco.desktop.miner.requests.CocoRequest;
 import com.gazman.coco.desktop.miner.transactions.Transaction1To1Request;
 import com.gazman.coco.desktop.popups.PopupBuilder;
 import com.gazman.coco.desktop.settings.ClientSettings;
+import com.gazman.coco.desktop.utils.CoinUtils;
 import com.gazman.lifecycle.Factory;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import org.bitcoinj.core.Base58;
 
 /**
- * Created by Ilya Gazman on 6/23/2018.
+ * Created by Ilya Gazman on 7/15/2018.
  */
-public class SendCoinsController {
-    public TextField address;
-    public TextField amountField;
-    public CheckBox allCheckBox;
+public class SendCoinsExecuteController {
+    public TextArea textBox;
     private TransactionsModel transactionsModel = Factory.inject(TransactionsModel.class);
-
     private ScreensController screensController = Factory.inject(ScreensController.class);
 
-
-    public void onContinue(MouseEvent mouseEvent) {
-        if (transactionsModel.getTransactionDatas().size() == 1) {
-            make1To1Request();
-        } else {
-            throw new Error("Not implemented");
+    @FXML
+    public void initialize() {
+        StringBuilder report = new StringBuilder();
+        for (TransactionData transactionData : transactionsModel.getTransactionDatas()) {
+            report.append(CoinUtils.toCoinsString(transactionData.amount)).append(" -> ").append(transactionData.recipient).append("\n");
         }
+        report.append("\n Total transaction fees: ").append(CoinUtils.toCoinsString(transactionsModel.summeryData.totalFees));
+        textBox.setText(report.toString());
     }
 
-    private void make1To1Request() {
+
+    public void onCancel(MouseEvent mouseEvent) {
+        transactionsModel.clear();
+        screensController.mainScreen.open();
+    }
+
+    public void onExecute(MouseEvent mouseEvent) {
         TransactionData transactionData = transactionsModel.getTransactionDatas().get(0);
         new Transaction1To1Request(ClientSettings.instance.defaultPoolData)
                 .setAmount(transactionData.amount)
@@ -43,9 +47,9 @@ public class SendCoinsController {
                 .setCallback(new CocoRequest.Callback<SummeryData>() {
                     @Override
                     public void onSuccess(SummeryData data) {
-                        transactionsModel.summeryData = data;
+                        transactionsModel.clear();
                         Factory.inject(PopupBuilder.class)
-                                .setMessage("You preview is ready")
+                                .setMessage("You transaction been submitted to the pool and will be executed shortly")
                                 .setTitle("Success")
                                 .setPositiveButtonCallback(event -> screensController.sendCoinsPreviewScreen.open())
                                 .execute();
@@ -59,38 +63,6 @@ public class SendCoinsController {
                                 .execute();
                     }
                 })
-                .execute();
-    }
-
-    public void onAddTransaction(MouseEvent mouseEvent) {
-        String reciepient = address.getText();
-        if (StringUtils.isNullOrEmpty(reciepient)) {
-            showError("Please add address");
-            return;
-        }
-
-        if (StringUtils.isNullOrEmpty(amountField.getText())) {
-            showError("Please specify amount");
-            return;
-        }
-        double amount = Double.parseDouble(amountField.getText());
-
-        if (transactionsModel.getTransactionDatas().size() > 0) {
-            Factory.inject(PopupBuilder.class)
-                    .setMessage("At the moment we only support single recipient, it will change soon ;)")
-                    .setTitle("Not support yet")
-                    .execute();
-        }
-        TransactionData transactionData = new TransactionData();
-        transactionData.amount = amount;
-        transactionData.recipient = reciepient;
-        transactionsModel.addTransaction(transactionData);
-    }
-
-    private void showError(String errorMessage) {
-        Factory.inject(PopupBuilder.class)
-                .setMessage(errorMessage)
-                .setTitle("Error")
                 .execute();
     }
 }

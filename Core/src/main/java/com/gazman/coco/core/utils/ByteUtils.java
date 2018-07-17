@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
  * Created by Ilya Gazman on 1/21/2018.
  */
 public class ByteUtils {
-    private static final BigInteger BASE = BigInteger.valueOf(256);
 
     public static boolean equals(byte[] a, byte b[]) {
         if (a == null || b == null) {
@@ -43,10 +42,16 @@ public class ByteUtils {
     public static byte[] toByteArray(byte[]... items) {
         int length = 0;
         for (byte[] item : items) {
+            if (item == null) {
+                continue;
+            }
             length += item.length;
         }
         ByteBuffer buffer = ByteBuffer.allocate(length);
         for (byte[] item : items) {
+            if (item == null) {
+                continue;
+            }
             buffer.put(item);
         }
         return buffer.array();

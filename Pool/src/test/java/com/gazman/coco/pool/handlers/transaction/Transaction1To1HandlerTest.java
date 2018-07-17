@@ -298,13 +298,13 @@ public class Transaction1To1HandlerTest {
     }
 
     private void testFalse(ByteBuffer buffer) throws IOException {
-//        String errorMessage = new Transaction1To1Handler().handle(1, senderFullId, signature, blockId, buffer);
+//        String errorMessage = new Transaction1To1Handler().execute(1, senderFullId, signature, blockId, buffer);
 //        System.out.println(errorMessage);
 //        assertNotNull(errorMessage);
     }
 
     private void testTrue(ByteBuffer buffer) throws IOException {
-//        assertNull(new Transaction1To1Handler().handle(1, senderFullId, signature, blockId, buffer));
+//        assertNull(new Transaction1To1Handler().execute(1, senderFullId, signature, blockId, buffer));
     }
 
 }

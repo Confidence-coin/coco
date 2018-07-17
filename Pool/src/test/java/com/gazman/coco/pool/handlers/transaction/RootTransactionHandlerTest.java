@@ -62,13 +62,13 @@ public class RootTransactionHandlerTest {
 
     @Test
     public void checkNull() throws Exception {
-        assertNotNull(rootTransactionHandler.onHandle(null));
+        assertNotNull(rootTransactionHandler.onHandle(null,null, false));
     }
 
     @Test
     public void emptyStream() throws Exception {
         InputStream stream = new ByteArrayInputStream(new byte[0]);
-        assertNotNull(rootTransactionHandler.onHandle(stream));
+        assertNotNull(rootTransactionHandler.onHandle(null, stream, false));
     }
 
     @Test
@@ -76,20 +76,20 @@ public class RootTransactionHandlerTest {
         byte[] bytes = new byte[1024 * 1024 * 10];
         random.nextBytes(bytes);
         InputStream stream = new ByteArrayInputStream(bytes);
-        assertNotNull(rootTransactionHandler.onHandle(stream));
+        assertNotNull(rootTransactionHandler.onHandle(null, stream, false));
     }
 
     @Test
     public void dummyData() throws Exception {
         byte[] data = new byte[1000];
-        assertNotNull(rootTransactionHandler.onHandle(buildStream(data)));
+        assertNotNull(rootTransactionHandler.onHandle(null, buildStream(data), false));
     }
 
     @Test
     public void incorrectType() throws Exception {
         byte[] data = new byte[120];
         setType(data, 90);
-        assertNotNull(rootTransactionHandler.onHandle(buildStream(data)));
+        assertNotNull(rootTransactionHandler.onHandle(null, buildStream(data), false));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class RootTransactionHandlerTest {
         byte[] data = new byte[120];
         setType(data, 1);
 
-        assertNotNull(rootTransactionHandler.onHandle(buildStream(data)));
+        assertNotNull(rootTransactionHandler.onHandle(null, buildStream(data), false));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class RootTransactionHandlerTest {
         byte[] data = new byte[120];
         setType(data, 1);
 
-        assertNull(rootTransactionHandler.onHandle(buildStream(data)));
+        assertNull(rootTransactionHandler.onHandle(null, buildStream(data), false));
     }
 
     private void setType(byte[] data, int type) {

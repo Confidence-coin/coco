@@ -16,5 +16,5 @@
       </font></Label>
     <Label text="Label" fx:id="message"/>
     <Label />
-    <Button mnemonicParsing="false" text="Ok" onMouseClicked="#onPositiveButtonClick"/>
+    <Button text="Ok" fx:id="positiveButton"/>
 </VBox>

@@ -1,7 +1,9 @@
 package com.gazman.coco.desktop.miner.requests;
 
+import com.gazman.coco.core.api.SummeryData;
 import com.gazman.coco.core.utils.ByteUtils;
 import com.gazman.coco.core.utils.MultiByteInteger;
+import com.gazman.coco.desktop.controllers.send_coins.TransactionsModel;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
 import okhttp3.MediaType;
@@ -11,18 +13,19 @@ import okhttp3.RequestBody;
 /**
  * Created by Ilya Gazman on 2/22/2018.
  */
-public abstract class TransactionRequest extends CocoRequest<String, TransactionRequest> {
+public abstract class TransactionRequest extends CocoRequest<SummeryData, TransactionRequest> {
 
-    public static final MediaType BINARY_DATA = MediaType.parse("application/octet-stream");
+    private static final MediaType BINARY_DATA = MediaType.parse("application/octet-stream");
     private WalletModel walletModel =  Factory.inject(WalletModel.class);
     private int type;
     private byte[] blockHash;
 
-    protected TransactionRequest(PoolData poolData, int type, byte[] blockHash) {
+    protected TransactionRequest(PoolData poolData, int type) {
         super(poolData);
         this.type = type;
-        this.blockHash = blockHash;
-        setResponseClass(String.class);
+        TransactionsModel transactionsModel = Factory.inject(TransactionsModel.class);
+        this.blockHash = transactionsModel.summeryData != null ? transactionsModel.summeryData.blockHash : null;
+        setResponseClass(SummeryData.class);
     }
 
 
@@ -31,6 +34,7 @@ public abstract class TransactionRequest extends CocoRequest<String, Transaction
         httpUrlBuilder
                 .host(host)
                 .port(port)
+                .addQueryParameter("preparing", blockHash == null ? "true" : "false")
                 .addPathSegments(path);
 
         byte[] data = buildTransaction();

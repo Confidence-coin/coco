@@ -8,11 +8,11 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.controllers.MainScreenController">
     <TextFlow>
         <Text text="Balance: " style="-fx-fill: white;"/>
-        <Text text="5 Gold " style="-fx-fill: white; -fx-stroke: gold; -fx-font-weight: bold"/>
+        <Text text="0 Gold " style="-fx-fill: white; -fx-stroke: gold; -fx-font-weight: bold" fx:id="goldBalance"/>
         <Text text=", " style="-fx-fill: white;"/>
-        <Text text="200 Silver" style="-fx-fill: white; -fx-stroke: silver; -fx-font-weight: bold"/>
+        <Text text="0 Silver" style="-fx-fill: white; -fx-stroke: silver; -fx-font-weight: bold" fx:id="silverBalance"/>
         <Text text=", and " style="-fx-fill: white;"/>
-        <Text text="1K Bronze" style="-fx-fill: white; -fx-stroke: brown; -fx-font-weight: bold"/>
+        <Text text="0 Bronze" style="-fx-fill: white; -fx-stroke: brown; -fx-font-weight: bold" fx:id="bronzeBalance"/>
 
     </TextFlow>
 
