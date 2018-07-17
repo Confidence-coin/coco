@@ -1,0 +1,1 @@
+Please make sure that proior to submiting a pool request you had a disscusion about it on the [Facebook group](https://www.facebook.com/groups/confidence.coin/), so people can give you feedback before you ask to add your code.
