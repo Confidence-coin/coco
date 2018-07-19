@@ -1,3 +1,6 @@
+[submodule "androidLifeCycle"]
+	path = androidLifeCycle
+	url = https://github.com/gazman-sdk/Life-Cycle
 [submodule "lifeCycle"]
 	path = lifeCycle
-	url = git@github.com:Confidence-coin/life-cycle-java.git
+	url = https://github.com/Confidence-coin/life-cycle-java.git
