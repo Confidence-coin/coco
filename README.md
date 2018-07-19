@@ -1,31 +1,43 @@
 # Confidence Coin
 To be released by May 2019
 -------------------
-You can read about Coco and find the white papers on the official website: [confidence-coin.com](https://confidence-coin.com)  
+You can read about Coco and find the **White Papers** on the official website: [confidence-coin.com](https://confidence-coin.com)  
 Subscribe for news and release announcement [here](https://groups.google.com/forum/#!forum/confidence-coin/join)  
 For any question you have the best way to contact me is via the Facebook group [Coco Developers and designers](https://www.facebook.com/groups/349187585612732/).
 _________
 
-Join the contributors' program and start earning points, once subscribing to the [mailing list](https://groups.google.com/forum/#!forum/confidence-coin/join) you will get access to the [leaderboar](https://docs.google.com/spreadsheets/d/13Pk-x2AXiU3egC8lrQJrlpoAYsEdWHhLNRxgudZ4YF8) where you can see how other doing.
+Join the contributors' program and start earning points, once subscribing to the [mailing list](https://groups.google.com/forum/#!forum/confidence-coin/join) you can access to the [leaderboar](https://docs.google.com/spreadsheets/d/13Pk-x2AXiU3egC8lrQJrlpoAYsEdWHhLNRxgudZ4YF8) where you can see how other doing.
 
-Start by watching a [quick overview video](https://www.youtube.com/watch?v=4eC-v7ZS3PI) about the project
+Start by watching the [Getting started video](https://www.youtube.com/watch?v=4eC-v7ZS3PI)
 
-# Development and design opportunities
+# Development and design tasks for contributors
+ - :notebook: **Open dev task**
+ - :orange_book: **Open design task**
+ - :green_book: **Completed task**
+
+Below are screenshots from the wallet app, I am using those to aggregate the relevant tasks.
+
 # Create password
 ![create password](https://user-images.githubusercontent.com/6512430/42005570-3b5e4556-7a43-11e8-8958-770251c16629.PNG)  
-The idea is to have one password to the wallet application, while there could be many wallets inside it. This screen is working but maybe you would like to improve the error handling, and make more password conditions, it can definitely look better. Suggest tasks for this screen, and I will add them here.
+
+ - :green_book: Create wallet-password and use it to encrypt all the settings files including the wallet private key.
 
 # Create or restore wallet
 ![create or restore wallet](https://user-images.githubusercontent.com/6512430/42005569-3b49e818-7a43-11e8-9611-43e6948097b7.PNG)  
+
  Implement the restore wallet screen  
- - Screen layout layout **20 points**
- - Basic Functionality using the private key as an input **100 points**
- - Cool functionality using [Mnemonic_phrase](https://en.bitcoin.it/wiki/Mnemonic_phrase) **300** points
+ - :orange_book: Screen layout layout **20 points**
+ - :notebook: Restore the wallet using the private key as an input **100 points**
+ - :notebook: Restore and export the wallet using [Mnemonic_phrase](https://en.bitcoin.it/wiki/Mnemonic_phrase) **400** points
+
+Implement multi-wallets(keys) support
+ - :notebook: Add wallet nickname and show it on the main screen. **50 points**
+ - :notebook: Allow a user to create multiple wallets, each new wallet private key is a hash of the previous private key, so the user only needs one private key to restore all of his wallets. **200 points**
+ - :orange_book: Allow the user to switch between the wallets on the Main screen **100 points**
 
 # Main screen  
 ![main screen](https://user-images.githubusercontent.com/6512430/42005571-3b6ba57a-7a43-11e8-93e9-10a09cf87e2b.PNG)  
 Ui/Ux and layout  
- - Add ability to switch wallets - 10 points
  - Add ability to login to contributors program where the leaderboard cab be seen, the login is google login - 10 points
  - leaderboard screen - 20 points
  - Show contributor profile(google profile) - 10 points
