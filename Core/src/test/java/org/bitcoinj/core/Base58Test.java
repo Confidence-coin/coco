@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class Base58Test {
 
     @Test
-    public void encodeWithCheckSum() throws Exception {
+    public void encodeWithCheckSum() {
         Random random = new Random();
         for (int i = 1; i < 100; i++) {
             byte[] bytes = new byte[i];
@@ -24,7 +24,7 @@ public class Base58Test {
     }
 
     @Test
-    public void encode() throws Exception {
+    public void encode() {
         Random random = new Random();
         for (int i = 1; i < 100; i++) {
             byte[] bytes = new byte[i];

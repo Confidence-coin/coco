@@ -4,5 +4,8 @@ include ':Core'
 include 'CoreInstaller'
 include 'lifeCycle'
 include 'BlockBuilder'
+include 'android'
+include 'androidLifeCycle'
 include 'db'
+include 'Base58'
 

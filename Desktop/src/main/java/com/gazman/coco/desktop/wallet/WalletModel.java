@@ -7,6 +7,7 @@ import com.gazman.lifecycle.Singleton;
 import org.bitcoinj.core.Base58;
 import org.whispersystems.curve25519.Curve25519;
 import org.whispersystems.curve25519.Curve25519KeyPair;
+import org.whispersystems.curve25519.java.curve_sigs;
 
 import java.nio.charset.Charset;
 
@@ -68,6 +69,10 @@ public class WalletModel implements Singleton {
         Curve25519KeyPair keyPair = cipher.generateKeyPair();
         ssk = keyPair.getPrivateKey();
         publicKey = keyPair.getPublicKey();
+
+        byte[] publicKey = new byte[32];
+        curve_sigs.curve25519_keygen(publicKey, ssk);
+
         settingsFile.writeKey("ssk", getPrivateKey());
         settingsFile.writeKey("publicKey", getPublicKey());
         settingsFile.save("Key was generated");

@@ -16,8 +16,7 @@
 
 package org.bitcoinj.core;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -61,7 +60,7 @@ public class Base58 {
         return encode(buffer.array()) + "@" + key;
     }
 
-    private static @Nullable
+    private static
     byte[] decodeWithCheckSum(String key) {
         String[] data = key.split("@");
         if (data.length != 2) {
@@ -122,8 +121,8 @@ public class Base58 {
      * @param input the base58-encoded string to decode
      * @return the decoded data bytes or null in case of error
      */
-    public static @Nullable
-    byte[] decode(@NotNull String input) {
+    public static
+    byte[] decode(String input) {
         if (input.length() == 0) {
             return null;
         }
