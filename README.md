@@ -37,19 +37,24 @@ Implement multi-wallets(keys) support
 
 # Main screen  
 ![main screen](https://user-images.githubusercontent.com/6512430/42005571-3b6ba57a-7a43-11e8-93e9-10a09cf87e2b.PNG)  
-Ui/Ux and layout  
- - Add ability to login to contributors program where the leaderboard cab be seen, the login is google login - 10 points
- - leaderboard screen - 20 points
- - Show contributor profile(google profile) - 10 points
- - create Crypto card([D.T.P](https://confidence-coin.com/home/dtp/)) screen - 20 points
- - Settings screen with option to swich pools, the pool that you fetch your balance from and making transactions to - 20 points
- - Redesign the entire UX - 30 points
- 
-**Please provide some mockup before you implement those changes**
 
-Development tasks   
- - Implement google login - 50 points
- - Fetch balance data from the pool - 50 points
+Leaderboard screen - At the moment we use Google Sheets to display the contributors' leaderboard. I would like to make our web version of it to pull the data from Google Sheets.
+ - :orange_book: Create webpage ui **50 points**
+ - :notebook: Add google login with access to drive permission - **70 points**
+ - :notebook: Pull data from google sheet and display it on the leaderboard - **100 points**
+ 
+ 
+ Link to the crypto card button. Maybe we need a better name for this button. I would like this button to take you to a screen where you can join to [D.T.P](https://confidence-coin.com/home/dtp/), as well as terminate your membership there. From the moment you joined the D.T.P, all the wallet transactions should go through the D.T.P
+ - :orange_book: Create the screen - **20 points**
+ - :notebook: Create a protocol of communication between the D.T.P and the wallet **150 points**
+ 
+ Create a setting screen and a button to go there from the main screen
+ - :orange_book: Create the settings screen and the button to go there **50 points**
+ - :notebook: Fetch the Royal Pools domains from the current Pool. You need to add a new API call for that in the Pool **250 points**
+ - :notebook: Create a settings option to select to what pool you like to connect, it can be one of the Royal pools or manually added new Pool by the user **100 points**.
+
+User balance
+- :notebook: Fetch balance data from the pool and update the balance- **100 points**
 
 # Send coins  
 ![send coins](https://user-images.githubusercontent.com/6512430/42005573-3b8744ba-7a43-11e8-8ea1-94dc8c9c31b4.PNG)   
