@@ -95,4 +95,4 @@ The smart contract is made of two things, media and script. The media can be a t
  - :orange_book: Web client. Let's use Angular here. It should not have a mining option. **500 points**
  
  # Even more tasks
- - :notebook: Implement Pool to Pool protocol to exchange blocks. It must use UDP. The idea is that each Pool can download what block he likes from any other Pool. Anyone can use this protocol, but there will a priority for Royal network Pools.
+ - :notebook: Implement Pool to Pool protocol to exchange blocks. It must use UDP. The idea is that each Pool can download what block he likes from any other Pool. Anyone can use this protocol, but there will a priority for Royal network Pools. **500 points**
