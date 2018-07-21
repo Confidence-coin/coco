@@ -20,7 +20,7 @@ Below are screenshots from the wallet app, I am using those to aggregate the rel
 # Create password
 ![create password](https://user-images.githubusercontent.com/6512430/42005570-3b5e4556-7a43-11e8-8958-770251c16629.PNG)  
 
- - :green_book: Create wallet-password and use it to encrypt all the settings files including the wallet private key.
+ - :notebook::green_book: Create wallet-password and use it to encrypt all the settings files including the wallet private key.
 
 # Create or restore wallet
 ![create or restore wallet](https://user-images.githubusercontent.com/6512430/42005569-3b49e818-7a43-11e8-9611-43e6948097b7.PNG)  
@@ -54,64 +54,45 @@ Leaderboard screen - At the moment we use Google Sheets to display the contribut
  - :notebook: Create a settings option to select to what pool you like to connect, it can be one of the Royal pools or manually added new Pool by the user **100 points**.
 
 User balance
-- :notebook: Fetch balance data from the pool and update the balance- **100 points**
+- :notebook: Fetch balance data from the pool and update the balance **100 points**
 
 # Send coins  
 ![send coins](https://user-images.githubusercontent.com/6512430/42005573-3b8744ba-7a43-11e8-8ea1-94dc8c9c31b4.PNG)   
-Ui/Ux and layout  
-You can make multiple transactions in one call. Those transactions need to be shown on the screen in some table(List view) where you can edit or remove them. Create the layout for that view - 50 points
 
-*Read about all I got in the white papers, it's a list feature that will send all of your available balance.*
-
-Development tasks   
- - The client can't calculate the transactions fees as it doesn't know which wallet were registered already and which is not. For the wallets who wasn't registered one need to add them to wallets list, and it cost more transaction fees, 32 bytes of the public key. Therefore there the confirmation page where a request for calculating the transaction fees is made. I didn't implement this part yet, but I do have a 1 to 1 transaction implemented on the next screen, so you can figure out how this part could be implemented. **800 points**
+Make transactions to one or multiple recipients.
+ - :orange_book: Create a listView to display the transactions **100 points**
+ - :orange_book: Allow transactions addition, deletion and modification **100 points**
+ - :notebook::green_book: Create transaction model where the final data of the transaction will be saved
+ - :notebook::green_book: Implement one to one transaction in both the Wallet and the Pool.
+ - :notebook: Implement one to many transaction with same amount in both the Wallet and the Pool. **200**
+ - :notebook: Implement one to many transaction with different amount in both the Wallet and the Pool. **200**
+ - :notebook: Implement the send all feature in both the Wallet and the Pool. **200**
 
 # transaction summary 
 ![Transaction summary](https://user-images.githubusercontent.com/6512430/42005575-3b9e26f8-7a43-11e8-8534-68aae09f3fd5.PNG)   
-Ui/Ux and layout  
- - Also in here, we need the list of transactions I would say that you cannot edit anything in this screen, but you can return and edit it all. **50 points**
- 
-Development tasks   
- - We need to save the transactions in some place. So we need to create a model for that, all my models implement Singelton interface, and you get a reference to them by calling `Factory.inject(MyModel.class)` 100 points
- - We need to implement the rest of the transactions. It includes updating the [protocol doc](https://confidence-coin.com/client-pool-protocol/). I don't know yet of a good way to maintain it, so just post it on the facebook page, and I will update the site.
-         - Update the protocol - 50 points  
-         - Update server side - 50 points  
-         - Update client side - 50 points   
-         
-The above tasks are for each of the transactions except the update transaction. This one is special. I think it should not be part of the client. The D.T.P will have to implement it by them self, so we only need to update the protocol and the server side here.   
- - Server-side - 100 points
- - update protocol - 50 points
- - List group - I explain it in the white papers, it allows the D.T.P make other types of transactions besides the Update Transactions. 100 points
+
+The tasks from the previous screen also apply this one
 
 # Mining screen  
 ![mining screen](https://user-images.githubusercontent.com/6512430/42005572-3b786558-7a43-11e8-98f9-ae937a83c927.PNG)  
-Ui/Ux and layout  
-Think about what you want to see on this screen regarding UI/UX and post suggestions in the facebook group.
 
-Development tasks  
- - The error handling needs improvement. I will leave it up to you how to implement it. 100 points
- - The mining algorithm needs to change, I want to add another hashing to the last step, this in order to be able to send the last two hashes as part of the block header, and whoever receive the block will verify the proof of work first without the need to download the entire block in order to calculate the transactions hash and verify it. This is the most robust verification, and it can be done in the first 64 bytes of the block. 200 points
- 
+  - :orange_book::green_book: Show mining speed while mining
+  - :notebook::green_book: Mine and submit work to the pool
+  - :notebook: Use the same functionality as in the settings screen to switch pools **50 points**
+
 # Smart contracts  
 ![smart contracts](https://user-images.githubusercontent.com/6512430/42005574-3b920fd0-7a43-11e8-8cae-8a5ac0fcf974.PNG)   
-Ui/Ux and layout  
-Let's talk in the facebook group about improving the design of this page
 
-Development tasks  
-There should be some basic protocol where we get a link, and we download a content + a script. Then we show the content, compile the script and calculate the hash of the merge. This hash is the key to the smart contract.
+The smart contract is made of two things, media and script. The media can be a text file, an image or a video, basicaly it's an HTML page that you can render offline after downloading. The HTML page and the script should be displayed and rendered separately, so one will not be able to hide the actual script.
+
+ - :notebook: Create a page that can load HTML from a zip file. That zip file should be downloaded from a link provided by the user. **300 points**
  
- - Create the protocol - 50 points
- - Download and show the media file from URL
-     - HTML content - 50 points
-     - Video content - 50 points
-     - txt cointent - 25 points(the html should parse this)
-     - PDF content - 80 points 
-     - sound content - 50 points
-     - Other content - ask in facebook group
- - The biggest part here is the script. Lets talk in the facebook group about what is should have.
+ I am still not sure how the actual script will be implemented.
 
-
-# Other tasks 
-For those tasks, let's discuss in the facebook group
- - Pool to pool protocol, broadcast blocks and transactions.
- - More contributors features, I would like to create a fun and a social place for everyone to play in :)
+# Other clients
+ - :orange_book: Android client. I prefer that it to be part of the IntelliJ project, but if you want to do it a standalone version, I am fine with it too. The first task is to implement the UI for all the screens. **500 points**
+ - :orange_book: iPhone client. There will be no mining in iPhone client as it against Apple policy, like in Android client, let's start with UI first. **500 points**
+ - :orange_book: Web client. Let's use Angular here. It should not have a mining option. **500 points**
+ 
+ # Even more tasks
+ - :notebook: Implement Pool to Pool protocol to exchange blocks. It must use UDP. The idea is that each Pool can download what block he likes from any other Pool. Anyone can use this protocol, but there will a priority for Royal network Pools.
