@@ -1,4 +1,4 @@
-package com.gazman.coco.core.block;
+package com.gazman.coco.pool.blocks;
 
 /**
  * Created by Ilya Gazman on 1/15/2018.

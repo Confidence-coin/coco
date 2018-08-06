@@ -27,7 +27,7 @@ public final class PoolSettings {
     public static final long SHARE_TIME_ERROR;
 
     /**
-     * Wallet id where the reword goes to
+     * Wallet id where the reward goes to
      */
     public static final int POOL_MINER_ID;
     /**
@@ -43,10 +43,10 @@ public final class PoolSettings {
         settings.load("pool.txt");
         settings.setSaveDefaults(true);
 
-        POOL_DIFFICULTY_MULTIPLIER = settings.readInteger("POOL_DIFFICULTY_MULTIPLIER", 1_000_000);
+        POOL_DIFFICULTY_MULTIPLIER = settings.readInteger("POOL_DIFFICULTY_MULTIPLIER", 1);
 
         POOL_SECRET = Utils.uuidToByteArray(settings.readString("POOL_SECRET", UUID.randomUUID()::toString));
-        SHARE_TIME_ERROR = settings.readInteger("SHARE_TIME_ERROR", 1000 * 30);
+        SHARE_TIME_ERROR = settings.readInteger("SHARE_TIME_ERROR", 1000 * 60 * 10);
         POOL_MINER_ID = settings.readInteger("POOL_MINER_ID", 1);
         POOL_DOMAIN = settings.readString("POOL_DOMAIN", "127.0.0.1");
         SECRET_KEY = Base58.decode(settings.readString("SECRET_KEY",

@@ -1,6 +1,9 @@
 package com.gazman.coco.core.api;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.function.Predicate;
 
 /**
  * Created by Ilya Gazman on 1/18/2018.
@@ -19,7 +22,7 @@ public class WorkData {
     @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof WorkData)) {
+        if (!(obj instanceof WorkData)) {
             return false;
         }
         WorkData workData = (WorkData) obj;

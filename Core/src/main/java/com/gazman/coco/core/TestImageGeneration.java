@@ -8,6 +8,7 @@ import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by Ilya Gazman on 1/15/2018.

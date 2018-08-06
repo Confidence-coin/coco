@@ -3,10 +3,14 @@ package com.gazman.coco.db;
 import com.gazman.lifecycle.Factory;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.postgresql.copy.CopyManager;
+import org.postgresql.core.BaseConnection;
 
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -167,18 +171,39 @@ public class DB implements Closeable {
         return true;
     }
 
+    public void loadFromCsvFile(Object context, String tableName, String resourcePath) {
+        loadFromCsvFile(context.getClass(), tableName, resourcePath);
+    }
+
+    public void loadFromCsvFile(Class<?> context, String tableName, String resourcePath) {
+        InputStream inputStream = context.getClassLoader().getResourceAsStream(resourcePath);
+
+        try {
+            Connection connection = ConnectionExtractor.extract(getConnection());
+            if (connection == null) {
+                throw new Error("Failed extracting connection");
+            }
+            CopyManager copyManager = new CopyManager((BaseConnection) connection);
+            copyManager.copyIn("copy " + tableName + " from stdin delimiter E'\\t' CSV HEADER", inputStream);
+        } catch (SQLException | IOException e) {
+            onException(e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     public interface StatementHandler {
         boolean handle(ResultSet resultSet) throws SQLException;
     }
 
-    private void onException(SQLException e) {
+    private void onException(Exception e) {
         e.printStackTrace();
     }
 
     private String[] loadScripts(File sqlScript) {
         String script = null;
         try {
-            script = new String(Files.readAllBytes(sqlScript.toPath()), "UTF-8").trim();
+            script = new String(Files.readAllBytes(sqlScript.toPath()), StandardCharsets.UTF_8).trim();
             if (script.endsWith(";")) {
                 script = script.substring(0, script.length() - 1);
             }

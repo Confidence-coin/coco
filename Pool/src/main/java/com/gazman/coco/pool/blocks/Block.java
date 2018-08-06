@@ -1,6 +1,5 @@
 package com.gazman.coco.pool.blocks;
 
-import com.gazman.coco.core.block.Wallet;
 import com.gazman.coco.core.hash.Sha256Hash;
 
 import java.nio.ByteBuffer;
@@ -18,15 +17,14 @@ public class Block implements Cloneable {
 
     // Header
     public int blockId;
-    public byte[] difficulty;
     public byte[] coreVersion;
     public int domainByeLength;
     public String poolDomain;
     public double transactionsFees;
     public double smartContractsFees;
-    public int blockReword;
-    public int rewordId;
-    public int leadershipRewordId;
+    public int blockReward;
+    public int rewardId;
+    public int leadershipRewardId;
     public int smartContractsExecutionHash;
     public byte[] previousBlockHash;
 
@@ -119,9 +117,8 @@ public class Block implements Cloneable {
 
     private void computeHeader(ByteBuffer buffer) {
         buffer.putInt(blockId);
-        buffer.put(difficulty);
         buffer.put(coreVersion);
-        buffer.putInt(rewordId);
+        buffer.putInt(rewardId);
         buffer.put(previousBlockHash);
     }
 

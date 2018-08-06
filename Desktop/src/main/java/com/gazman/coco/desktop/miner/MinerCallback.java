@@ -7,5 +7,5 @@ public interface MinerCallback {
 
     void onProgress(LoopData loopData);
 
-    void onSolutionFound(int blob, long blockTime);
+    void onSolutionFound(long blob, long blockTime);
 }

@@ -1,11 +1,14 @@
 package com.gazman.coco.core.utils;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.Random;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -68,5 +71,21 @@ public class ByteUtilsTest {
     public void toByteStringUnsigned() {
         byte[] bytes = new byte[]{-1, (byte) 254, 5};
         assertEquals("2552545", ByteUtils.toByteString(bytes, false).replaceAll(" ", ""));
+    }
+
+    @Test
+    public void verifyUUIDBytesCanBeReconstructedBackToOriginalUUID() {
+        UUID uuid1 = UUID.randomUUID();
+        byte[] uBytes = ByteUtils.toByteArray(uuid1);
+        UUID uuid2 = ByteUtils.toUUID(uBytes);
+        assertEquals(uuid1, uuid2);
+    }
+
+    @Test
+    public void verifyNameUUIDFromBytesMethodDoesNotRecreateOriginalUUID() {
+        UUID uuid1 = UUID.randomUUID();
+        byte[] uBytes = ByteUtils.toByteArray(uuid1);
+        UUID uuid2 = UUID.nameUUIDFromBytes(uBytes);
+        assertNotEquals(uuid1, uuid2);
     }
 }

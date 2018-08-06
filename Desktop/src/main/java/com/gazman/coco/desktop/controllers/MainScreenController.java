@@ -1,5 +1,6 @@
 package com.gazman.coco.desktop.controllers;
 
+import com.gazman.coco.db.DB;
 import com.gazman.coco.desktop.root.BaseController;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
@@ -29,7 +30,15 @@ public class MainScreenController extends BaseController {
     }
 
     public void sendMoney() {
-        screens.sendCoinsScreen.open();
+//        screens.sendCoinsScreen.open();
+
+        try(DB db = new DB()){
+            db.insert("core.wallets")
+                    .add("wallet_id", 1)
+                    .add("balance", 0)
+                    .add("public_key", walletModel.getPublicKeyBytes())
+                    .execute();
+        }
     }
 
     public void exportWallet() {

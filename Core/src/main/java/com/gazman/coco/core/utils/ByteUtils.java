@@ -2,6 +2,7 @@ package com.gazman.coco.core.utils;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.util.UUID;
 
 /**
  * Created by Ilya Gazman on 1/21/2018.
@@ -80,13 +81,13 @@ public class ByteUtils {
         int aLength = a.length;
         int bLength = b.length;
 
-        for (int i = a.length - 1; i >= 0 && a[i] == 0; i--) {
-            aLength--;
-        }
-
-        for (int i = b.length - 1; i >= 0 && b[i] == 0; i--) {
-            bLength--;
-        }
+//        for (int i = a.length - 1; i >= 0 && a[i] == 0; i--) {
+//            aLength--;
+//        }
+//
+//        for (int i = b.length - 1; i >= 0 && b[i] == 0; i--) {
+//            bLength--;
+//        }
 
         if (aLength > bLength) {
             return 1;
@@ -130,5 +131,19 @@ public class ByteUtils {
             }
         }
         return false;
+    }
+
+    public static UUID toUUID(byte[] bytes) {
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        long firstLong = bb.getLong();
+        long secondLong = bb.getLong();
+        return new UUID(firstLong, secondLong);
+    }
+
+    public static byte[] toByteArray(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return bb.array();
     }
 }

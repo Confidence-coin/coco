@@ -11,7 +11,6 @@ import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +25,7 @@ public class MinerService implements Singleton {
     private boolean mining;
     private ProgressCallback callback;
     private ExecutorService mainExecutor;
-    private ExecutorService minersExecutor;
+    private ExecutorService workExecutor;
     private ExecutorService speedExecutor = Executors.newSingleThreadExecutor();
 
     private ArrayList<Miner> miners = new ArrayList<>();
@@ -87,13 +86,14 @@ public class MinerService implements Singleton {
         logger.d("onGettingNewWork", workData);
         int threads = getThreadCount();
         AtomicInteger threadId = new AtomicInteger(0);
-        minersExecutor = Executors.newFixedThreadPool(threads, r -> {
+        workExecutor = Executors.newFixedThreadPool(threads, r -> {
             int priority = getPriority();
             Thread thread = new Thread(r, "Miner(" + priority + ") " + threadId.incrementAndGet());
             thread.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
             thread.setPriority(priority);
             return thread;
         });
+        miners.clear();
         for (int i = 0; i < threads; i++) {
             Miner miner = new Miner(workData, i, new MinerCallback() {
                 @Override
@@ -102,7 +102,7 @@ public class MinerService implements Singleton {
                 }
 
                 @Override
-                public void onSolutionFound(int blob, long blockTime) {
+                public void onSolutionFound(long blob, long blockTime) {
                     Factory.inject(GetWorkRequest.class)
                             .setCallback(new CocoRequest.Callback<WorkData>() {
                                 @Override
@@ -115,7 +115,7 @@ public class MinerService implements Singleton {
 
                                 @Override
                                 public void onError(ErrorData errorData) {
-
+                                    logger.e(errorData);
                                 }
                             })
                             .setWorkId(workData.workId)
@@ -125,7 +125,9 @@ public class MinerService implements Singleton {
                 }
             });
             miners.add(miner);
-            minersExecutor.submit(miner::start);
+        }
+        for (Miner miner : miners) {
+            workExecutor.submit(miner::start);
         }
     }
 
@@ -153,8 +155,8 @@ public class MinerService implements Singleton {
             miner.shutDown();
         }
         miners.clear();
-        minersExecutor.shutdown();
-        minersExecutor = null;
+        workExecutor.shutdown();
+        workExecutor = null;
         loops.clear();
         Platform.runLater(() -> callback.onProgress(0));
     }
