@@ -50,11 +50,6 @@ public class DBMock extends DB {
     }
 
     @Override
-    public <T> void insertBatch(String tableName, List<T> items, InsertBatchCommand.InsertHandler<T> handler) {
-
-    }
-
-    @Override
     public boolean execute(String sql) {
         return true;
     }

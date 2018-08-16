@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import static com.gazman.coco.db.InsertCommand.applyValue;
 
@@ -18,14 +18,14 @@ public class InsertBatchCommand<T> {
     private Connection connection;
     private String tableName;
     private InsertHandler<T> insertHandler;
-    private List<T> items;
+    private Collection<T> items;
 
     public InsertBatchCommand<T> setInsertHandler(InsertHandler<T> insertHandler) {
         this.insertHandler = insertHandler;
         return this;
     }
 
-    public InsertBatchCommand<T> setItems(List<T> items) {
+    public InsertBatchCommand<T> setItems(Collection<T> items) {
         this.items = items;
         return this;
     }
@@ -41,14 +41,16 @@ public class InsertBatchCommand<T> {
     }
 
     public void execute() throws SQLException {
+        if(items == null || items.size() == 0){
+            throw new Error("Empty list");
+        }
         StringBuilder sql = new StringBuilder()
                 .append("insert into ")
                 .append(tableName).append("(");
 
         HashMap<String, Object> values = new HashMap<>();
-        ArrayList<String> keys = new ArrayList<>();
-        insertHandler.onInsertRow(items.get(0), values);
-        keys.addAll(values.keySet());
+        insertHandler.onInsertRow(items.iterator().next(), values);
+        ArrayList<String> keys = new ArrayList<>(values.keySet());
 
         boolean isFirst = true;
         for (String key : keys) {
@@ -95,8 +97,9 @@ public class InsertBatchCommand<T> {
 
     private void addRow(HashMap<String, Object> values, ArrayList<String> keys, PreparedStatement statement) throws SQLException {
         for (int i = 0; i < keys.size(); i++) {
-            Object value = values.get(keys.get(i));
-            applyValue(value, statement, i + 1);
+            String key = keys.get(i);
+            Object value = values.get(key);
+            applyValue(value, key, statement, i + 1);
         }
     }
 

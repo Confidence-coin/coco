@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class MiningUtils {
 
-    public static byte[] computeBlockHash(byte[] headerAndTransactionsHash, long longBlob, long miningDate) throws NoSuchAlgorithmException, DigestException {
+    public static byte[] computeBlockHash(byte[] footerHash, long longBlob, long miningDate) throws NoSuchAlgorithmException, DigestException {
         final MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         final MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
         final MessageDigest md5 = MessageDigest.getInstance("MD5");
         final MessageDigest sha384 = MessageDigest.getInstance("SHA-384");
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
 
-        if (headerAndTransactionsHash == null) {
+        if (footerHash == null) {
             throw new Error("bad hash");
         }
         byte[] blockAndBlobAndBlobHash = new byte[128];
@@ -33,7 +33,7 @@ public class MiningUtils {
 
         //updateTime
         timeBuffer.putLong(miningDate);
-        timeBuffer.put(headerAndTransactionsHash);
+        timeBuffer.put(footerHash);
         byte[] timeHash = sha256.digest(timeBuffer.array());
         System.arraycopy(timeHash, 0, blockAndBlobAndBlobHash, 0, 32);
 

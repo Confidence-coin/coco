@@ -17,6 +17,8 @@
 
 package com.gazman.coco.core.hash;
 
+import com.gazman.coco.core.utils.ByteUtils;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +39,10 @@ public class Sha256Hash {
 
     public static byte[] hash(byte[] data) {
         return createDigest().digest(data);
+    }
+
+    public static byte[] hash(byte[]...items) {
+        return createDigest().digest(ByteUtils.toByteArray(items));
     }
 
     public static byte[] hash(byte[] data, int offset, int length) {

@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -69,6 +70,14 @@ public class DB implements Closeable {
         return false;
     }
 
+    public void truncateTable(String tableName){
+        try (Statement statement = getConnection().createStatement()){
+            statement.execute("truncate table " + tableName);
+        } catch (SQLException e) {
+            onException(e);
+        }
+    }
+
     public Connection getConnection() throws SQLException {
         if (connection == null) {
             connection = dataSource.getConnection();
@@ -113,7 +122,7 @@ public class DB implements Closeable {
         return Factory.inject(InsertCommand.class);
     }
 
-    public <T> void insertBatch(String tableName, List<T> items,
+    public <T> void insertBatch(String tableName, Collection<T> items,
                                 InsertBatchCommand.InsertHandler<T> handler) {
         try {
             new InsertBatchCommand<T>()

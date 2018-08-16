@@ -88,8 +88,9 @@ public class InsertCommand {
         try {
             PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < keys.size(); i++) {
-                Object value = values.get(keys.get(i));
-                applyValue(value, statement, i + 1);
+                String key = keys.get(i);
+                Object value = values.get(key);
+                applyValue(value, key, statement, i + 1);
             }
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
@@ -114,8 +115,14 @@ public class InsertCommand {
         return -1;
     }
 
-    static void applyValue(Object value, PreparedStatement preparedStatement, int index) throws SQLException {
-        if (value instanceof String) {
+    static void applyValue(Object value, String key, PreparedStatement preparedStatement, int index) throws SQLException {
+        if (value == null) {
+            throw new Error(key + " Is null, for null values please use NullValue class");
+        }
+        else if(value instanceof NullValue){
+            preparedStatement.setNull(index, ((NullValue) value).type);
+        }
+        else if (value instanceof String) {
             preparedStatement.setString(index, (String) value);
         } else if (value instanceof Integer) {
             preparedStatement.setInt(index, (int) value);

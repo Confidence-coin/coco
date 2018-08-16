@@ -26,7 +26,7 @@ public class WorkHandler extends ParamsHandler {
     protected String onHandle(HttpExchange exchange, byte[] publicKey, HashMap<String, String> params) throws Exception {
         WorkData workData = new WorkData();
         try (DB db = new DB()) {
-            byte[][] headerAndTransactionsHash = new byte[1][];
+            byte[][] footerHash = new byte[1][];
             int[] id = new int[1];
             int[] blockId = new int[1];
 
@@ -36,7 +36,7 @@ public class WorkHandler extends ParamsHandler {
                 }
                 id[0] = resultSet.getInt(1);
                 blockId[0] = resultSet.getInt(2);
-                headerAndTransactionsHash[0] = resultSet.getBytes(3);
+                footerHash[0] = resultSet.getBytes(3);
                 return true;
             })) {
                 return "Internal fetching work";
@@ -48,13 +48,13 @@ public class WorkHandler extends ParamsHandler {
             }
 
             workData.shareErrorMessage = validateShare(db, publicKey,
-                    headerAndTransactionsHash[0],
+                    footerHash[0],
                     blockId[0],
                     readLong(params, "workId", -1),
                     readLong(params, "blob", -1),
                     readLong(params, "minedDate", -1), DifficultyUtils.getPoolDifficulty(difficulty));
 
-            workData.step3Hash = headerAndTransactionsHash[0];
+            workData.step3Hash = footerHash[0];
             workData.workId = id[0];
 
         }
@@ -63,7 +63,7 @@ public class WorkHandler extends ParamsHandler {
         return null;
     }
 
-    private String validateShare(DB db, byte[] publicKey, byte[] headerAndTransactionsHash, int blockId, long workId, long blob, long minedDate, byte[] poolDifficulty) throws NoSuchAlgorithmException, IOException, DigestException {
+    private String validateShare(DB db, byte[] publicKey, byte[] footerHash, int blockId, long workId, long blob, long minedDate, byte[] poolDifficulty) throws NoSuchAlgorithmException, IOException, DigestException {
         if (workId == -1) {
             return "no workId";
         }
@@ -77,7 +77,7 @@ public class WorkHandler extends ParamsHandler {
         }
 
         byte[] jobId = computeUUID(publicKey, blockId);
-        byte[] blockHash = MiningUtils.computeBlockHash(headerAndTransactionsHash, blob, minedDate);
+        byte[] blockHash = MiningUtils.computeBlockHash(footerHash, blob, minedDate);
 
         String error = coalesce(
                 () -> validateWork(blockHash, poolDifficulty),
@@ -87,7 +87,7 @@ public class WorkHandler extends ParamsHandler {
             return error;
         }
 
-        computeBlock(headerAndTransactionsHash, jobId, minedDate, blob, blockHash);
+        computeBlock(footerHash, jobId, minedDate, blob, blockHash);
 
         return null;
     }
