@@ -1,7 +1,6 @@
 package com.gazman.coco.desktop.popups;
 
 import com.gazman.coco.desktop.ScreensController;
-import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.utils.Command;
 import javafx.event.EventHandler;
@@ -26,9 +25,13 @@ public class PopupBuilder implements Command {
     private String titleData, messageData;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private EventHandler<MouseEvent> positiveButtonCallback;
+    private String resourceName = "/popup.fxml";
+    private StageHandler stageHandler;
 
-public Button c;
-
+    public PopupBuilder setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+        return this;
+    }
 
     public PopupBuilder setPositiveButtonCallback(EventHandler<MouseEvent> positiveButtonCallback) {
         this.positiveButtonCallback = positiveButtonCallback;
@@ -49,7 +52,7 @@ public Button c;
     public void execute() {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
-        loader.setLocation(getClass().getResource("/popup.fxml"));
+        loader.setLocation(getClass().getResource(resourceName));
         Parent root;
 
         try {
@@ -70,25 +73,26 @@ public Button c;
         stage.setScene(scene);
         stage.show();
 
-
-
-
-        ((Button)loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
-            stage.close();
-            if(positiveButtonCallback != null){
-                positiveButtonCallback.handle(event);
-            }
-        });
-
-
+        if(stageHandler == null) {
+            ((Button) loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
+                stage.close();
+                if (positiveButtonCallback != null) {
+                    positiveButtonCallback.handle(event);
+                }
+            });
+        }
+        else{
+            stageHandler.handleStage(stage);
+        }
     }
-
-
-
 
 
     private void onError(IOException e) {
 
+    }
+
+    public interface StageHandler{
+        void handleStage(Stage stage);
     }
 
     public class Controller {
@@ -99,11 +103,6 @@ public Button c;
         public void initialize() {
             title.setText(PopupBuilder.this.titleData);
             message.setText(PopupBuilder.this.messageData);
-        }
-
-        @FXML
-        public void onPositiveButtonClick() {
-            stage.close();
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.gazman.coco.desktop;
 
-import com.gazman.coco.desktop.popups.PopupBuilder;
 import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
 import com.gazman.lifecycle.Bootstrap;
@@ -11,11 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 
 /**
  * Created by Ilya Gazman on 3/7/2018.
@@ -27,11 +23,9 @@ public class RootScreenController extends Application {
     public Button smartContractsButton;
 
 
-
     public ToolBar toolBar;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
-    public PopupBuilder popupBuilder=Factory.inject(PopupBuilder.class);
 
     public static void main(String... args) {
         new Bootstrap() {
@@ -52,7 +46,6 @@ public class RootScreenController extends Application {
             }
         };
         Application.launch(args);
-
     }
 
     @FXML
@@ -76,8 +69,5 @@ public class RootScreenController extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    @FXML
-    protected void PopupOpen(){
-        popupBuilder.execute();
-    }
+
 }
