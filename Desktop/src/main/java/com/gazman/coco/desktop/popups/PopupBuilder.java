@@ -1,6 +1,7 @@
 package com.gazman.coco.desktop.popups;
 
 import com.gazman.coco.desktop.ScreensController;
+import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.utils.Command;
 import javafx.event.EventHandler;
@@ -26,6 +27,9 @@ public class PopupBuilder implements Command {
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private EventHandler<MouseEvent> positiveButtonCallback;
 
+public Button c;
+
+
     public PopupBuilder setPositiveButtonCallback(EventHandler<MouseEvent> positiveButtonCallback) {
         this.positiveButtonCallback = positiveButtonCallback;
         return this;
@@ -47,6 +51,7 @@ public class PopupBuilder implements Command {
         loader.setController(new Controller());
         loader.setLocation(getClass().getResource("/popup.fxml"));
         Parent root;
+
         try {
             root = loader.load();
 
@@ -56,7 +61,7 @@ public class PopupBuilder implements Command {
             return;
         }
 
-        Scene scene = new Scene(root, 250, 150);
+        Scene scene = new Scene(root, 250, 250);
 
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -66,13 +71,21 @@ public class PopupBuilder implements Command {
         stage.show();
 
 
+
+
         ((Button)loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
             stage.close();
             if(positiveButtonCallback != null){
                 positiveButtonCallback.handle(event);
             }
         });
+
+
     }
+
+
+
+
 
     private void onError(IOException e) {
 

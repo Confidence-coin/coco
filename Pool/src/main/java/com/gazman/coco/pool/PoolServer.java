@@ -29,7 +29,7 @@ public class PoolServer {
             HttpServer server = null;
             ExecutorService executor = Executors.newFixedThreadPool(20);
             try {
-                server = HttpServer.create(new InetSocketAddress("localhost", 8081), 0);
+                server = HttpServer.create(new InetSocketAddress("localhost", 5432), 0);
                 System.out.println("Server started on " + server.getAddress().getHostName() + ":" +
                         server.getAddress().getPort());
                 server.createContext("/work", new WorkHandler());

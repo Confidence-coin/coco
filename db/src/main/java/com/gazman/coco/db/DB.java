@@ -34,7 +34,7 @@ public class DB implements Closeable {
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
         config.setUsername("postgres");
         //noinspection SpellCheckingInspection
-        config.setPassword("mysecretpass");
+        config.setPassword("4520");
         config.setConnectionTestQuery("select 1");
         config.setAutoCommit(true);
 

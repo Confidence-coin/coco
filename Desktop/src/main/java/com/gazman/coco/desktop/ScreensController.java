@@ -1,5 +1,6 @@
 package com.gazman.coco.desktop;
 
+import com.gazman.coco.desktop.popups.PopupBuilder;
 import com.gazman.lifecycle.Singleton;
 import com.sun.istack.internal.NotNull;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,10 @@ public class ScreensController implements Singleton {
     public final Screen smartContractsScreen = new Screen("/smart_contracts_screen.fxml");
     public final Screen restoreWalletScreen = new Screen("/restore_wallet_layout.fxml");
     public final Screen sendCoinsScreen = new Screen("/send_coins_screen.fxml");
-    public final Screen sendCoinsPreviewScreen = new Screen("/send_coins_preview_screen.fxml");
+
+    public Screen createwallet=new Screen("/create_wallet.fxml");
+    public final Screen sendCoinsPreviewScreen = new Screen("/send_coins_screen.fxml");
+
 
     private VBox root;
     private ToolBar toolBar;
@@ -34,6 +38,10 @@ public class ScreensController implements Singleton {
     private Screen activeScreen;
     private Stage stage;
     private Scene scene;
+
+
+
+
 
     public void init(VBox root, ToolBar toolBar) {
         this.root = root;

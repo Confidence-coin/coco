@@ -5,16 +5,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minWidth="200" spacing="10"
+<VBox alignment="BASELINE_RIGHT" maxHeight="400.0" maxWidth="600.0" minWidth="200" spacing="10"
       xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
+        <Insets bottom="5" left="25" right="10" top="10" />
     </padding>
-    <Label text="Error" fx:id="title">
+
+    <Label text="Information" fx:id="title">
       <font>
          <Font size="24.0" />
       </font></Label>
     <Label text="Label" fx:id="message"/>
     <Label />
-    <Button text="Ok" fx:id="positiveButton"/>
+    <Label text="Wallter:" fx:id="wallets">
+    </Label>>
+    <Button fx:id="c" text="CreateWallet"  />
+    <Button text="Ok" fx:id="positiveButton" alignment="BASELINE_CENTER"/>
 </VBox>
