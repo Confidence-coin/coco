@@ -1,6 +1,5 @@
 package com.gazman.coco.desktop;
 
-import com.gazman.coco.desktop.popups.PopupBuilder;
 import com.gazman.coco.desktop.popups.ProfilePopup;
 import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
@@ -26,7 +25,7 @@ public class RootScreenController extends Application {
     public ToolBar toolBar;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
-    ProfilePopup popup=new ProfilePopup();
+    ProfilePopup popup = new ProfilePopup();
 
 
     public static void main(String... args) {
@@ -73,10 +72,11 @@ public class RootScreenController extends Application {
         primaryStage.show();
 
     }
-    public void PopupOpen(){
 
-
+    public void popupOpen() throws Exception {
         popup.display();
+
+
     }
 
 }

@@ -21,10 +21,10 @@ public class EncryptionSettings extends BaseSettings {
         save("password updated");
     }
 
-    public boolean login(char[] password, String fileName){
+    public boolean login(char[] password, String fileName) {
         EncryptionSettings.password = password;
         load(fileName);
-        if(!"123456".equals(readString("password", ""))){
+        if (!"123456".equals(readString("password", ""))) {
             EncryptionSettings.password = null;
         }
         return EncryptionSettings.password != null;

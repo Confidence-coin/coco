@@ -30,6 +30,7 @@ public class ScreensController implements Singleton {
     public final Screen sendCoinsScreen = new Screen("/send_coins_screen.fxml");
 
 
+
     public final Screen sendCoinsPreviewScreen = new Screen("/send_coins_screen.fxml");
 
 

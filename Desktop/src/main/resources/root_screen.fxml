@@ -18,9 +18,9 @@
             <Button fx:id="smartContractsButton" text="Smart Contracts"/>
             <Button fx:id="miningButton" text="Mining"/>
 
-            <ImageView fx:id="imageview" onMouseClicked="#PopupOpen" >
-                <image >
-                    <Image url="profilepicture.png" ></Image>
+            <ImageView fx:id="imageview" onMouseClicked="#popupOpen">
+                <image>
+                    <Image url="profilepicture.png"></Image>
                 </image>
             </ImageView>
 

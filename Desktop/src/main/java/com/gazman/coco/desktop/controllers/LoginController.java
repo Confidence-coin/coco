@@ -5,6 +5,7 @@ import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 
@@ -16,13 +17,16 @@ public class LoginController {
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
     private EncryptionSettings encryptionSettings = Factory.inject(EncryptionSettings.class);
     private WalletModel walletModel = Factory.inject(WalletModel.class);
+    private CheckBox remember;
 
     public void loginHandler(MouseEvent mouseEvent) {
-        if(encryptionSettings.login(PasswordUtils.password(password.getText()), PasswordUtils.PASSWORD_FILE)){
+
+        if (encryptionSettings.login(PasswordUtils.password(password.getText()), PasswordUtils.PASSWORD_FILE)) {
+
+
             walletModel.init();
             moveToMainCommand.execute();
-        }
-        else{
+        } else {
             Factory.inject(PopupBuilder.class)
                     .setMessage("Invalid password")
                     .setTitle("Error")
@@ -30,3 +34,4 @@ public class LoginController {
         }
     }
 }
+
