@@ -16,25 +16,22 @@ import java.io.File;
  */
 public class MoveToMainCommand implements Command {
     private ScreensController screensController = Factory.inject(ScreensController.class);
-    private WalletModel walletModel =  Factory.inject(WalletModel.class);
+    private WalletModel walletModel = Factory.inject(WalletModel.class);
 
     @Override
     public void execute() {
         ScreensController.Screen screen;
 
-        if(EncryptionSettings.password != null){
-            if(walletModel.getPrivateKey() != null){
+        if (EncryptionSettings.password != null) {
+            if (walletModel.getPrivateKey() != null) {
                 ClientSettings.instance.init();
                 screen = screensController.mainScreen;
-            }
-            else{
+            } else {
                 screen = screensController.welcomeScreen;
             }
-        }
-        else if(new File("settings/" + PasswordUtils.PASSWORD_FILE).exists()){
+        } else if (new File("settings/" + PasswordUtils.PASSWORD_FILE).exists()) {
             screen = screensController.loginScreen;
-        }
-        else{
+        } else {
             screen = screensController.passwordScreen;
         }
 

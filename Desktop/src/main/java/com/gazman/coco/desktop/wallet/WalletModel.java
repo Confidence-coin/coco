@@ -9,6 +9,10 @@ import org.whispersystems.curve25519.Curve25519;
 import org.whispersystems.curve25519.Curve25519KeyPair;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ilya Gazman on 1/16/2018.
@@ -16,11 +20,12 @@ import java.nio.charset.Charset;
 public class WalletModel implements Singleton {
 
 
-
+    String name;
     private static final Charset UTF_8 = Charset.forName("UTF-8");
     private final BaseSettings settingsFile = Factory.inject(BaseSettings.class);
     public byte[] ssk;
     private byte[] publicKey;
+    public Map<byte[], String> Wallets = Factory.inject(HashMap.class);
 
     public void init() {
         settingsFile.load("wallet.txt");
@@ -73,8 +78,29 @@ public class WalletModel implements Singleton {
         settingsFile.save("Key was generated");
     }
 
+    public void generateKey(byte[] ssk) {
+        Curve25519 cipher = Utils.createCipher();
+        Curve25519KeyPair keyPair = cipher.generateKeyPair();
+        ssk = keyPair.getPrivateKey();
+        publicKey = keyPair.getPublicKey();
+        settingsFile.writeKey("ssk", getPrivateKey());
+        settingsFile.writeKey("publicKey", getPublicKey());
+        settingsFile.save("Key was generated");
+    }
+
     public int getFees() {
         return settingsFile.readInteger("fees", 50000);
+    }
+
+    public String getname() {
+        this.name = name;
+        return name;
+
+    }
+
+    public int WalletSize() {
+        int size = Wallets.size();
+        return size;
     }
 
     public double getBalance() {

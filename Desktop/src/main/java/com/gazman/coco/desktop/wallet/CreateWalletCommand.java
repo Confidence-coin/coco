@@ -11,7 +11,7 @@ import org.whispersystems.curve25519.Curve25519KeyPair;
  */
 public class CreateWalletCommand implements Command {
     @Override
-    public  void execute() {
+    public void execute() {
         Curve25519 cipher = Utils.createCipher();
         Curve25519KeyPair keyPair = cipher.generateKeyPair();
         String key = Base58.encode(keyPair.getPrivateKey());

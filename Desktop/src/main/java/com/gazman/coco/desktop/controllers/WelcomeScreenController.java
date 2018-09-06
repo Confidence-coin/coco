@@ -11,8 +11,10 @@ import com.gazman.lifecycle.Factory;
 public class WelcomeScreenController extends BaseController {
     private WalletModel walletModel = Factory.inject(WalletModel.class);
 
+
     public void createWallet() {
         walletModel.generateKey();
+        walletModel.Wallets.put(walletModel.ssk, walletModel.getname());
         Factory.inject(MoveToMainCommand.class).execute();
     }
 

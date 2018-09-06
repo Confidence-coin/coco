@@ -1,6 +1,6 @@
 package com.gazman.coco.desktop;
 
-import com.gazman.coco.desktop.popups.PopupBuilder;
+
 import com.gazman.lifecycle.Singleton;
 import com.sun.istack.internal.NotNull;
 import javafx.fxml.FXMLLoader;
@@ -8,9 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -30,7 +28,6 @@ public class ScreensController implements Singleton {
     public final Screen sendCoinsScreen = new Screen("/send_coins_screen.fxml");
 
 
-
     public final Screen sendCoinsPreviewScreen = new Screen("/send_coins_screen.fxml");
 
 
@@ -40,9 +37,6 @@ public class ScreensController implements Singleton {
     private Screen activeScreen;
     public Stage stage;
     private Scene scene;
-
-
-
 
 
     public void init(VBox root, ToolBar toolBar) {
@@ -106,7 +100,8 @@ public class ScreensController implements Singleton {
             invalidate();
         }
 
-        @NotNull Parent getView() {
+        @NotNull
+        Parent getView() {
             if (parent == null) {
                 parent = load(path);
             }

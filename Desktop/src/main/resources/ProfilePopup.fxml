@@ -3,9 +3,11 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
@@ -26,6 +28,18 @@
                 <Button fx:id="ok" layoutX="102.0" layoutY="187.0" mnemonicParsing="false" text="OK"/>
             </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="284.0"/>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="284.0">
+            <children>
+                <VBox layoutX="17.0" layoutY="10.0" prefHeight="373.0" prefWidth="310.0">
+                    <children>
+                        <Label alignment="CENTER" lineSpacing="10.0" prefHeight="81.0" prefWidth="310.0" text="Wallets"
+                               textOverrun="WORD_ELLIPSIS"/>
+                        <Label fx:id="size" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0"
+                               prefWidth="308.0" textAlignment="CENTER" text="#WalletSize"/>
+                        <ListView prefHeight="239.0" prefWidth="310.0"/>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
     </items>
 </SplitPane>

@@ -3,6 +3,7 @@ package com.gazman.coco.desktop;
 import com.gazman.coco.desktop.popups.ProfilePopup;
 import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
+import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Bootstrap;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.signal.SignalsHelper;
@@ -25,7 +26,8 @@ public class RootScreenController extends Application {
     public ToolBar toolBar;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
-    ProfilePopup popup = new ProfilePopup();
+    private ProfilePopup popup = new ProfilePopup();
+    WalletModel walletModel = new WalletModel();
 
 
     public static void main(String... args) {
@@ -65,6 +67,7 @@ public class RootScreenController extends Application {
     public void start(Stage primaryStage) {
 
         System.out.println("App started");
+        //** System.out.println(walletModel.WalletSize()); //
         primaryStage.setTitle("Coco wallet");
         Scene scene = new Scene(screensController.rootScreen.getView());
         screensController.init(primaryStage, scene);
@@ -75,8 +78,6 @@ public class RootScreenController extends Application {
 
     public void popupOpen() throws Exception {
         popup.display();
-
-
     }
 
 }
