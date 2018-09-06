@@ -21,7 +21,7 @@ import java.io.IOException;
  * Created by Ilya Gazman on 3/21/2018.
  */
 public class PopupBuilder implements Command {
-    private Stage stage;
+     Stage stage;
     private String titleData, messageData;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private EventHandler<MouseEvent> positiveButtonCallback;
@@ -73,6 +73,7 @@ public class PopupBuilder implements Command {
         stage.setScene(scene);
         stage.show();
 
+
         if(stageHandler == null) {
             ((Button) loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
                 stage.close();
@@ -92,7 +93,7 @@ public class PopupBuilder implements Command {
     }
 
     public interface StageHandler{
-        void handleStage(Stage stage);
+        void handleStage( Stage stage);
     }
 
     public class Controller {

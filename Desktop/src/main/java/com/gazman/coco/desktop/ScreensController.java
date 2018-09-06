@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ScreensController implements Singleton {
     public final Screen restoreWalletScreen = new Screen("/restore_wallet_layout.fxml");
     public final Screen sendCoinsScreen = new Screen("/send_coins_screen.fxml");
 
-    public Screen createwallet=new Screen("/create_wallet.fxml");
+
     public final Screen sendCoinsPreviewScreen = new Screen("/send_coins_screen.fxml");
 
 
@@ -36,7 +37,7 @@ public class ScreensController implements Singleton {
     private ToolBar toolBar;
     private LinkedList<Screen> screenStock = new LinkedList<>();
     private Screen activeScreen;
-    private Stage stage;
+    public Stage stage;
     private Scene scene;
 
 
