@@ -17,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Ilya Gazman on 6/19/2017.
@@ -70,8 +69,8 @@ public class DB implements Closeable {
         return false;
     }
 
-    public void truncateTable(String tableName){
-        try (Statement statement = getConnection().createStatement()){
+    public void truncateTable(String tableName) {
+        try (Statement statement = getConnection().createStatement()) {
             statement.execute("truncate table " + tableName);
         } catch (SQLException e) {
             onException(e);

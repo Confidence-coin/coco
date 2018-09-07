@@ -42,7 +42,7 @@
         <Text style="-fx-font-weight: bold" text="Secret key: " />
         <Text text="With secret key you can restore your wallet on any device and it allows your wallet to make transactions. You should write your secret key to a paper as there is no way to recover it." />
     </TextFlow>
-    <TextFlow maxWidth="400" >
+    <TextFlow maxWidth="400">
         <Text style="-fx-font-weight: bold" text="Wallet address: " />
         <Text text="You should give your wallet address to people who want to send you money." />
     </TextFlow>

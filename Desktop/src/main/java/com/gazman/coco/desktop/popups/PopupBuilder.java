@@ -21,17 +21,10 @@ import java.io.IOException;
  * Created by Ilya Gazman on 3/21/2018.
  */
 public class PopupBuilder implements Command {
-    Stage stage;
+    private Stage stage;
     private String titleData, messageData;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private EventHandler<MouseEvent> positiveButtonCallback;
-    private String resourceName = "/popup.fxml";
-    private StageHandler stageHandler;
-
-    public PopupBuilder setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-        return this;
-    }
 
     public PopupBuilder setPositiveButtonCallback(EventHandler<MouseEvent> positiveButtonCallback) {
         this.positiveButtonCallback = positiveButtonCallback;
@@ -52,7 +45,7 @@ public class PopupBuilder implements Command {
     public void execute() {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controller());
-        loader.setLocation(getClass().getResource(resourceName));
+        loader.setLocation(getClass().getResource("/popup.fxml"));
         Parent root;
 
         try {
@@ -64,7 +57,7 @@ public class PopupBuilder implements Command {
             return;
         }
 
-        Scene scene = new Scene(root, 250, 250);
+        Scene scene = new Scene(root, 250, 150);
 
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -74,30 +67,21 @@ public class PopupBuilder implements Command {
         stage.show();
 
 
-        if (stageHandler == null) {
-            ((Button) loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
-                stage.close();
-                if (positiveButtonCallback != null) {
-                    positiveButtonCallback.handle(event);
-                }
-            });
-        } else {
-            stageHandler.handleStage(stage);
-        }
+        ((Button) loader.getNamespace().get("positiveButton")).setOnMouseClicked(event -> {
+            stage.close();
+            if (positiveButtonCallback != null) {
+                positiveButtonCallback.handle(event);
+            }
+        });
     }
-
 
     private void onError(IOException e) {
 
     }
 
-    public interface StageHandler {
-        void handleStage(Stage stage);
-    }
-
-    public class Controller {
-        public Label title;
-        public Label message;
+    private class Controller {
+        Label title;
+        Label message;
 
         @FXML
         public void initialize() {

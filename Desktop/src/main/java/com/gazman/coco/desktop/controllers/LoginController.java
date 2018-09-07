@@ -5,6 +5,7 @@ import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
+import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +18,8 @@ public class LoginController {
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
     private EncryptionSettings encryptionSettings = Factory.inject(EncryptionSettings.class);
     private WalletModel walletModel = Factory.inject(WalletModel.class);
-    private CheckBox remember;
+    @FXML
+    private CheckBox rememberCheckbox;
 
     public void loginHandler(MouseEvent mouseEvent) {
 

@@ -1,7 +1,6 @@
 package com.gazman.coco.desktop.root.commands;
 
 import com.gazman.coco.desktop.ScreensController;
-import com.gazman.coco.desktop.controllers.PasswordController;
 import com.gazman.coco.desktop.controllers.PasswordUtils;
 import com.gazman.coco.desktop.settings.ClientSettings;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
