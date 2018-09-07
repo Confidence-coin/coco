@@ -27,7 +27,7 @@ public class RootScreenController extends Application {
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
     private ProfilePopup popup = new ProfilePopup();
-    WalletModel walletModel = new WalletModel();
+
 
 
     public static void main(String... args) {
@@ -67,7 +67,6 @@ public class RootScreenController extends Application {
     public void start(Stage primaryStage) {
 
         System.out.println("App started");
-        //** System.out.println(walletModel.WalletSize()); //
         primaryStage.setTitle("Coco wallet");
         Scene scene = new Scene(screensController.rootScreen.getView());
         screensController.init(primaryStage, scene);

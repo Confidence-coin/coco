@@ -5,41 +5,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
-           xmlns:fx="http://javafx.com/fxml/1">
-    <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="150.0">
-            <children>
-                <Button fx:id="addwallet" layoutX="40.0" layoutY="127.0" prefHeight="25.0" prefWidth="123.0"
-                        text="Add New Wallet"/>
-                <Button fx:id="editprofile" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="148.0"
-                        text="Edit Profile"/>
-                <ToolBar layoutX="6.0" layoutY="26.0" prefHeight="52.0" prefWidth="166.0">
-                    <items>
-                        <Label text="Your Profile : "/>
-                    </items>
-                </ToolBar>
-                <PieChart layoutX="-11.0" layoutY="233.0" prefHeight="165.0" prefWidth="150.0"/>
-                <Button fx:id="ok" layoutX="102.0" layoutY="187.0" mnemonicParsing="false" text="OK"/>
-            </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="284.0">
-            <children>
-                <VBox layoutX="17.0" layoutY="10.0" prefHeight="373.0" prefWidth="310.0">
-                    <children>
-                        <Label alignment="CENTER" lineSpacing="10.0" prefHeight="81.0" prefWidth="310.0" text="Wallets"
-                               textOverrun="WORD_ELLIPSIS"/>
-                        <Label fx:id="size" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0"
-                               prefWidth="308.0" textAlignment="CENTER" text="#WalletSize"/>
-                        <ListView prefHeight="239.0" prefWidth="310.0"/>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
-    </items>
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.controllers.PopupController">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="32.0">
+        <Button fx:id="addwallet" layoutX="11.0" layoutY="26.0" prefHeight="89.0" prefWidth="156.0" text="Add New Wallet" />
+        <PieChart fx:id="piechart" layoutX="-11.0" layoutY="233.0" prefHeight="165.0" prefWidth="150.0" />
+    </AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="417.0">
+        <VBox layoutX="1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="417.0">
+            <Label alignment="CENTER" lineSpacing="10.0" prefHeight="54.0" prefWidth="415.0" text="Wallets" textOverrun="WORD_ELLIPSIS" />
+            <Label fx:id="size" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="419.0" />
+            <ListView fx:id="listview" prefHeight="307.0" prefWidth="417.0" />
+        </VBox>
+    </AnchorPane>
 </SplitPane>

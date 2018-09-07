@@ -16,7 +16,7 @@
 
     </TextFlow>
 
-    <HBox alignment="CENTER_LEFT" spacing="10">
+    <HBox alignment="CENTER_LEFT" spacing="10" fx:id="MyHBoxId">
         <Label text="Wallet address: 98095890804958hghg" fx:id="walletAddress"/>
         <Button alignment="CENTER" text="Copy" onMouseClicked="#onCopy"/>
     </HBox>

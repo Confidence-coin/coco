@@ -9,10 +9,8 @@ import org.whispersystems.curve25519.Curve25519;
 import org.whispersystems.curve25519.Curve25519KeyPair;
 
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ilya Gazman on 1/16/2018.
@@ -25,9 +23,10 @@ public class WalletModel implements Singleton {
     private final BaseSettings settingsFile = Factory.inject(BaseSettings.class);
     public byte[] ssk;
     private byte[] publicKey;
-    public Map<byte[], String> Wallets = Factory.inject(HashMap.class);
+    public List<String> wallets=new ArrayList();
 
     public void init() {
+        wallets.add("sdsd");
         settingsFile.load("wallet.txt");
         String sskData = settingsFile.readString("ssk", (String) null);
         if (sskData != null) {
@@ -91,16 +90,20 @@ public class WalletModel implements Singleton {
     public int getFees() {
         return settingsFile.readInteger("fees", 50000);
     }
-
+//Still working on this code part for the name and stuff//
     public String getname() {
-        this.name = name;
+
         return name;
 
     }
 
     public int WalletSize() {
-        int size = Wallets.size();
+        int size = wallets.size();
         return size;
+    }
+    public void CreateWallet(){
+        wallets.add(getname());
+
     }
 
     public double getBalance() {
