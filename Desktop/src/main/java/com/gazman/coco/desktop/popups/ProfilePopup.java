@@ -9,11 +9,9 @@ import javafx.stage.Stage;
 public class ProfilePopup {
 
 
-    String resource = "/ProfilePopup.fxml";
-
     public void display() throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource(resource));
+        Parent root = FXMLLoader.load(getClass().getResource("/ProfilePopup.fxml"));
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
