@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 <VBox alignment="CENTER" spacing="10" style="-fx-background-image: background.jpg;" GridPane.columnIndex="0"
-      GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+      GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121">
     <padding>
         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
     </padding>

@@ -9,8 +9,8 @@ public class WalletCellController {
     public TextField textField;
     public AnchorPane rootView;
 
-
     public void initialize() {
+
 
 
     }
