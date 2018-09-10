@@ -10,7 +10,6 @@ import org.whispersystems.curve25519.Curve25519KeyPair;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Ilya Gazman on 1/16/2018.
@@ -18,14 +17,14 @@ import java.util.List;
 public class WalletModel implements Singleton {
 
 
-    String name;
+
     private static final Charset UTF_8 = Charset.forName("UTF-8");
     private final BaseSettings settingsFile = Factory.inject(BaseSettings.class);
-    public byte[] ssk;
+    private byte[] ssk;
     private byte[] publicKey;
-    public List<String> wallets=new ArrayList();
+    public ArrayList<String> wallets= new ArrayList<>();
 
-    public void init() {
+    public void init()  {
         wallets.add("sdsd");
         settingsFile.load("wallet.txt");
         String sskData = settingsFile.readString("ssk", (String) null);
@@ -43,7 +42,7 @@ public class WalletModel implements Singleton {
         return Base58.encode(signature);
     }
 
-    public byte[] signToBytes(String data) {
+    private byte[] signToBytes(String data) {
         return signToBytes(data.getBytes(UTF_8));
     }
 
@@ -77,29 +76,20 @@ public class WalletModel implements Singleton {
         settingsFile.save("Key was generated");
     }
 
-    public void generateKey(byte[] ssk) {
-        Curve25519 cipher = Utils.createCipher();
-        Curve25519KeyPair keyPair = cipher.generateKeyPair();
-        ssk = keyPair.getPrivateKey();
-        publicKey = keyPair.getPublicKey();
-        settingsFile.writeKey("ssk", getPrivateKey());
-        settingsFile.writeKey("publicKey", getPublicKey());
-        settingsFile.save("Key was generated");
-    }
+
 
     public int getFees() {
         return settingsFile.readInteger("fees", 50000);
     }
 //Still working on this code part for the name and stuff//
-    public String getname() {
+public String getname() {
 
-        return name;
+        return "";
 
     }
 
     public int WalletSize() {
-        int size = wallets.size();
-        return size;
+        return wallets.size();
     }
     public void CreateWallet(){
         wallets.add(getname());
@@ -109,4 +99,6 @@ public class WalletModel implements Singleton {
     public double getBalance() {
         return 0;
     }
+
+
 }

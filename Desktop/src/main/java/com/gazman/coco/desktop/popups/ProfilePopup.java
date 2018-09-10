@@ -6,10 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ProfilePopup {
 
 
-    public void display() throws Exception {
+    public void display() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/ProfilePopup.fxml"));
         Stage window = new Stage();

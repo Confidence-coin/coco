@@ -10,9 +10,12 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Created by Ilya Gazman on 3/7/2018.
@@ -23,6 +26,7 @@ public class RootScreenController extends Application {
     public Button homeButton;
     public Button smartContractsButton;
     public ToolBar toolBar;
+    public ChoiceBox choicebox;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
     private ProfilePopup popup = new ProfilePopup();
@@ -56,9 +60,9 @@ public class RootScreenController extends Application {
         homeButton.setOnMouseClicked(event -> moveToMainCommand.execute());
         miningButton.setOnMouseClicked(event -> screensController.miningScreen.open());
         smartContractsButton.setOnMouseClicked(event -> screensController.smartContractsScreen.open());
-
         screensController.init(screensContainer, toolBar);
         moveToMainCommand.execute();
+
     }
 
     @Override
@@ -70,10 +74,13 @@ public class RootScreenController extends Application {
         screensController.init(primaryStage, scene);
         primaryStage.setScene(scene);
         primaryStage.show();
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+
+        choiceBox.getItems().addAll("wallet");
 
     }
 
-    public void popupOpen() throws Exception {
+    public void popupOpen() throws IOException {
         popup.display();
     }
 }
