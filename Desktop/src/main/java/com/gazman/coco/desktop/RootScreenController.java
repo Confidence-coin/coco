@@ -3,6 +3,7 @@ package com.gazman.coco.desktop;
 import com.gazman.coco.desktop.popups.ProfilePopup;
 import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
+import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Bootstrap;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.signal.SignalsHelper;
@@ -26,7 +27,7 @@ public class RootScreenController extends Application {
     public Button homeButton;
     public Button smartContractsButton;
     public ToolBar toolBar;
-    public ChoiceBox choicebox;
+    public ChoiceBox choiceBox;
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
     private ProfilePopup popup = new ProfilePopup();
@@ -63,6 +64,7 @@ public class RootScreenController extends Application {
         screensController.init(screensContainer, toolBar);
         moveToMainCommand.execute();
 
+
     }
 
     @Override
@@ -74,9 +76,9 @@ public class RootScreenController extends Application {
         screensController.init(primaryStage, scene);
         primaryStage.setScene(scene);
         primaryStage.show();
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
-        choiceBox.getItems().addAll("wallet");
+
+
 
     }
 

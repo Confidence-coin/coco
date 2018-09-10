@@ -88,7 +88,7 @@ public String getname() {
 
     }
 
-    public int WalletSize() {
+    public int walletSize() {
         return wallets.size();
     }
     public void CreateWallet(){

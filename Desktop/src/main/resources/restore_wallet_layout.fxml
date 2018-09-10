@@ -6,19 +6,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
-<VBox alignment="CENTER" spacing="10" style="-fx-background-image: background.jpg;" GridPane.columnIndex="0" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" spacing="10" style="-fx-background-image: background.jpg;" GridPane.columnIndex="0"
+      GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
     </padding>
-    <Text text="Please type the wallet id in order to restore your wallet" textAlignment="CENTER" />
+    <Text text="Please type the wallet id in order to restore your wallet" textAlignment="CENTER"/>
 
     <TextField
             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <Button alignment="CENTER" text="Restore wallet" />
+    <Button alignment="CENTER" text="Restore wallet"/>
 
     <stylesheets>
-        <URL value="@Login.css" />
+        <URL value="@Login.css"/>
     </stylesheets>
 
 </VBox>

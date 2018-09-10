@@ -21,7 +21,7 @@
             <ImageView onMouseClicked="#popupOpen">
                 <Image url="profilePicture.png"/>
             </ImageView>
-            <ChoiceBox fx:id="choicebox" blendMode="RED" prefWidth="150.0"/>
+            <ChoiceBox fx:id="choiceBox" blendMode="RED" prefWidth="150.0"/>
 
         </HBox>
     </ToolBar>
