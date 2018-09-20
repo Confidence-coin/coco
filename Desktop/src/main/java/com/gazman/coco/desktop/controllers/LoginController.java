@@ -22,10 +22,13 @@ public class LoginController {
     private CheckBox rememberCheckbox;
 
     public void loginHandler(MouseEvent mouseEvent) {
+        if(rememberCheckbox.isSelected()){
+
+         PasswordUtils.password(password.getText());
+
+        }
 
         if (encryptionSettings.login(PasswordUtils.password(password.getText()), PasswordUtils.PASSWORD_FILE)) {
-
-
             walletModel.init();
             moveToMainCommand.execute();
         } else {

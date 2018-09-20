@@ -14,6 +14,7 @@ public class WelcomeScreenController extends BaseController {
 
     public void createWallet() {
         walletModel.generateKey();
+        walletModel.myWallets.add(Factory.inject(WalletModel.WalletData.class));
         Factory.inject(MoveToMainCommand.class).execute();
     }
 

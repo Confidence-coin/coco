@@ -1,33 +1,41 @@
-package com.gazman.coco.desktop.controllers;
+package com.gazman.coco.desktop.popups;
 
+
+import com.gazman.coco.desktop.controllers.WalletCellController;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
 
-public class PopupController {
-    public ListView<WalletData> listView;
-    private ObservableList<WalletData> myWallets = FXCollections.observableArrayList();
+public class PopupController  {
+
     public Button addWalletButton;
     public PieChart piechart;
     public Label size;
-
-
     private WalletModel walletModel = Factory.inject(WalletModel.class);
-    private WalletCellController walletCellController = Factory.inject(WalletCellController.class);
+    private WalletCellController walletCellController=Factory.inject(WalletCellController.class);
+    @FXML
+    public ListView<WalletModel.WalletData> listView = new ListView<>(walletModel.myWallets);
+    public Event event;
 
 
     @FXML
     public void initialize() {
+        listView.setEditable(true);
+
+        listView.setVisible(true);
+        listView.setItems(walletModel.myWallets);
+
         listView.setCellFactory(param -> {
             try {
                 return new EditableCell();
@@ -36,28 +44,26 @@ public class PopupController {
             }
             return null;
         });
+        listView.layout();
+
+
+
 
         addWalletButton.setOnMouseClicked(event -> {
-            walletModel.CreateWallet();
+            walletModel.createWallet();
             listView.getFixedCellSize();
-            myWallets.add(new WalletData());
-
-
-            listView.setItems(myWallets);
             size.setText("Total Wallets:  " + walletModel.walletSize());
         });
-        myWallets.add(new WalletData());
-        listView.setItems(myWallets);
+        if (walletModel.myWallets.size() == 0) {
+            walletModel.initializeWalletData();
+            walletModel.myWallets.add(walletModel.initializeWalletData());
+        }
         size.setText("Wallet Size " + walletModel.walletSize());
-
-
     }
 
-    private class EditableCell extends ListCell<WalletData> {
-
+    static class EditableCell extends ListCell<WalletModel.WalletData> {
 
         private final WalletCellController controller;
-        ListCell<WalletData> cell = new ListCell<>();
 
 
         EditableCell() throws IOException {
@@ -65,34 +71,35 @@ public class PopupController {
             Node graphic = loader.load();
             controller = loader.getController();
             setGraphic(graphic);
-            cell.setUserData(walletCellController.textField);
-
 
         }
 
         @Override
-        protected void updateItem(WalletData item, boolean empty) {
-            super.updateItem(item, empty);
+        protected void updateItem(WalletModel.WalletData item, boolean empty) {
+
 
             if (empty) {
 
                 controller.rootView.setVisible(false);
 
             } else {
-
-
+                controller.textField.setText(item.getName());
                 controller.rootView.setVisible(true);
 
 
             }
         }
     }
-
-    class WalletData {
+    public  void onMousrClicked(){
     }
 
 
+
+
 }
+
+
+
 
 
 

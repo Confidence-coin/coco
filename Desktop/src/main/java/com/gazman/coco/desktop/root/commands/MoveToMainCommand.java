@@ -6,6 +6,7 @@ import com.gazman.coco.desktop.settings.ClientSettings;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
 import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Factory;
+import com.gazman.lifecycle.Injector;
 import com.gazman.lifecycle.utils.Command;
 
 import java.io.File;
@@ -13,9 +14,9 @@ import java.io.File;
 /**
  * Created by Ilya Gazman on 3/21/2018.
  */
-public class MoveToMainCommand implements Command {
-    private ScreensController screensController = Factory.inject(ScreensController.class);
-    private WalletModel walletModel = Factory.inject(WalletModel.class);
+public class MoveToMainCommand implements Command, Injector {
+    private ScreensController screensController ;
+    private WalletModel walletModel ;
 
     @Override
     public void execute() {
@@ -35,5 +36,11 @@ public class MoveToMainCommand implements Command {
         }
 
         screen.open();
+    }
+
+    @Override
+    public void injectionHandler(String family) {
+        screensController=Factory.inject(ScreensController.class);
+        walletModel=Factory.inject(WalletModel.class);
     }
 }

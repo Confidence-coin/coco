@@ -2,8 +2,11 @@ package com.gazman.coco.desktop.wallet;
 
 import com.gazman.coco.core.settings.BaseSettings;
 import com.gazman.coco.core.utils.Utils;
+import com.gazman.coco.desktop.controllers.WalletCellController;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.Singleton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.bitcoinj.core.Base58;
 import org.whispersystems.curve25519.Curve25519;
 import org.whispersystems.curve25519.Curve25519KeyPair;
@@ -17,16 +20,18 @@ import java.util.ArrayList;
 public class WalletModel implements Singleton {
 
 
-
     private static final Charset UTF_8 = Charset.forName("UTF-8");
     private final BaseSettings settingsFile = Factory.inject(BaseSettings.class);
     private byte[] ssk;
     private byte[] publicKey;
-    public ArrayList<String> wallets= new ArrayList<>();
+    private ArrayList<WalletData> wallets = new ArrayList<>();
+    public ObservableList<WalletData> myWallets = FXCollections.observableArrayList();
+    private WalletData selectedWallet=Factory.inject(WalletData.class);
 
-    public void init()  {
-        wallets.add("sdsd");
-        settingsFile.load("wallet.txt");
+
+    public void init() {
+        wallets.add(initializeWalletData());
+        settingsFile.load("walletname.txt");
         String sskData = settingsFile.readString("ssk", (String) null);
         if (sskData != null) {
             ssk = Base58.decode(sskData);
@@ -77,22 +82,20 @@ public class WalletModel implements Singleton {
     }
 
 
-
     public int getFees() {
         return settingsFile.readInteger("fees", 50000);
     }
-//Still working on this code part for the name and stuff//
-public String getname() {
 
-        return "";
+    //Still working on this code part for the name and stuff//
 
-    }
 
     public int walletSize() {
         return wallets.size();
     }
-    public void CreateWallet(){
-        wallets.add(getname());
+
+    public void createWallet() {
+        wallets.add(initializeWalletData());
+        myWallets.add(initializeWalletData());
 
     }
 
@@ -101,4 +104,35 @@ public String getname() {
     }
 
 
+    public WalletData initializeWalletData() {
+        WalletData data = new WalletData();
+        data.setName("Wallet" + walletSize());
+        return data;
+    }
+
+    public String getSelectedWalletName() {
+
+
+
+     return     selectedWallet.getName();
+    }
+
+
+    public class WalletData  {
+        String name;
+
+
+        public String getName() {
+            return name;
+        }
+
+        void setName(String name) {
+            this.name = name;
+        }
+    }
+
+
 }
+
+
+

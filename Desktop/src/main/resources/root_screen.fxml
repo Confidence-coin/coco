@@ -3,25 +3,24 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.RootScreenController">
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gazman.coco.desktop.RootScreenController">
     <ToolBar fx:id="toolBar" style="-fx-background-color: transparent;">
         <HBox prefHeight="97.0" prefWidth="583.0" spacing="20" styleClass="segmented-button-bar">
-            <Button fx:id="homeButton" text="Home"/>
-            <Button fx:id="smartContractsButton" text="Smart Contracts"/>
-            <Button fx:id="miningButton" text="Mining"/>
+            <Button fx:id="homeButton" text="Home" />
+            <Button fx:id="smartContractsButton" text="Smart Contracts" />
+            <Button fx:id="miningButton" text="Mining" />
 
-            <ImageView onMouseClicked="#popupOpen">
-                <Image url="profilePicture.png"/>
+            <ImageView fx:id="imageView" >
+                <Image url="profilePicture.png" />
             </ImageView>
-            <ChoiceBox fx:id="choiceBox" blendMode="RED" prefWidth="150.0"/>
+         <TextField text="wallet" fx:id="textField" />
 
         </HBox>
     </ToolBar>
@@ -30,11 +29,11 @@
     <VBox fx:id="screensContainer" prefHeight="400.0" prefWidth="600.0">
 
         <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
         </padding>
     </VBox>
 
     <stylesheets>
-        <URL value="@Login.css"/>
+        <URL value="@Login.css" />
     </stylesheets>
 </VBox>

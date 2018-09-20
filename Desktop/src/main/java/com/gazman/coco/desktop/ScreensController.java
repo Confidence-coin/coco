@@ -17,7 +17,7 @@ import java.util.LinkedList;
  * Created by Ilya Gazman on 3/8/2018.
  */
 public class ScreensController implements Singleton {
-    final Screen rootScreen = new Screen("/root_screen.fxml");
+    public final Screen rootScreen = new Screen("/root_screen.fxml");
     public final Screen passwordScreen = new Screen("/password_screen.fxml", false);
     public final Screen loginScreen = new Screen("/login_screen.fxml", false);
     public final Screen welcomeScreen = new Screen("/welcome_layout.fxml", false);

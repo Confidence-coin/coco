@@ -3,7 +3,6 @@ package com.gazman.coco.desktop;
 import com.gazman.coco.desktop.popups.ProfilePopup;
 import com.gazman.coco.desktop.root.commands.MoveToMainCommand;
 import com.gazman.coco.desktop.settings.EncryptionSettings;
-import com.gazman.coco.desktop.wallet.WalletModel;
 import com.gazman.lifecycle.Bootstrap;
 import com.gazman.lifecycle.Factory;
 import com.gazman.lifecycle.signal.SignalsHelper;
@@ -11,8 +10,9 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,16 +21,19 @@ import java.io.IOException;
 /**
  * Created by Ilya Gazman on 3/7/2018.
  */
-public class RootScreenController extends Application {
+public class RootScreenController extends Application   {
     public VBox screensContainer;
     public Button miningButton;
     public Button homeButton;
     public Button smartContractsButton;
     public ToolBar toolBar;
-    public ChoiceBox choiceBox;
+    public TextField textField;
+    public ImageView imageView;
+
     private ScreensController screensController = Factory.inject(ScreensController.class);
     private MoveToMainCommand moveToMainCommand = Factory.inject(MoveToMainCommand.class);
-    private ProfilePopup popup = new ProfilePopup();
+
+    private ProfilePopup popup = Factory.inject(ProfilePopup.class);
 
 
     public static void main(String... args) {
@@ -64,25 +67,32 @@ public class RootScreenController extends Application {
         screensController.init(screensContainer, toolBar);
         moveToMainCommand.execute();
 
+        imageView.setOnMouseClicked(event -> {
+            try {
+                popup.display();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+     //   popup.window.setOnHidden(event->textField.setText(popup.onMouseClicked()));
+
+
 
     }
 
     @Override
     public void start(Stage primaryStage) {
-
         System.out.println("App started");
-        primaryStage.setTitle("Coco wallet");
+        primaryStage.setTitle("Coco");
         Scene scene = new Scene(screensController.rootScreen.getView());
         screensController.init(primaryStage, scene);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
-
-
     }
 
-    public void popupOpen() throws IOException {
-        popup.display();
-    }
+
 }
+
+
+
